@@ -1,0 +1,52 @@
+
+
+length = wookie.length();
+
+switch
+	case(length < 5)
+		go get random word;
+		break;
+
+	case(length < 10)
+		go get random word;
+		break;
+	
+	case(length < 15)
+		go get random word;
+		break;
+	case(length < 20)
+		go get random word;
+		break;
+
+	default
+		go get random word;
+		break;
+
+
+--------------------------
+
+for(int i=0; i < wookie.length(); i = i + 5)
+{
+	go get random word;
+
+}
+-----------------------
+
+count = wookie.length() / 5; 
+while(count > 0)
+{
+	go get random word;
+	count--;
+}	
+
+
+------------------------------------
+
+
+for(int i = 0; i<wookie.length(); i++)
+{
+	if(wookie.charAt(i) == " ")
+		count++;
+}
+
+while
