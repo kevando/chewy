@@ -14,12 +14,33 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+import cgi
 import webapp2
 
-class MainHandler(webapp2.RequestHandler):
-    def get(self):
-        self.response.write('Hello world!')
+from google.appengine.api import users
 
-app = webapp2.WSGIApplication([
-    ('/', MainHandler)
-], debug=True)
+class MainPage(webapp2.RequestHandler):
+    def get(self):
+        self.response.out.write("""
+          <html>
+            <body>
+			  <h1>Enter something you would like to have translated to Wookie</h1>
+              <form action="/sign" method="post">
+                <div><input name="phrase" /></div>
+                <div><input type="submit" value="Sign Guestbook"></div>
+              </form>
+            </body>
+          </html>""")
+
+
+class Guestbook(webapp2.RequestHandler):
+    def post(self):
+        self.response.out.write('<html><body>Your Wookie Said:<pre>')
+        self.response.out.write('uuughhhguhh hhguhuhuhgg')
+#        self.response.out.write(cgi.escape(self.request.get('content')))
+#       self.response.out.write(cgi.escape(self.request.get('phrase')))
+        self.response.out.write('</pre></body></html>')
+
+app = webapp2.WSGIApplication([('/', MainPage),
+                              ('/sign', Guestbook)],
+                              debug=True)
