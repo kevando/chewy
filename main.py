@@ -21,12 +21,22 @@ import os
 from google.appengine.ext.webapp import template
 from google.appengine.api import users
 
+import datetime
+import urllib
+from google.appengine.ext import db
+from google.appengine.api import users
+
+class Book(db.Model):
+    author = db.StringProperty()
+    title = db.StringProperty()
+    content = db.StringProperty(multiline=True)
+    date = db.DateTimeProperty(auto_now_add=True)
+
 
 class MainPage(webapp2.RequestHandler):
 	def get(self):
-		
 		templateValues = {
-            'url': 'test variable',
+            'wookie': 'not used',
 		}
 		path = os.path.join(os.path.dirname(__file__), 'base.html')
 		self.response.out.write(template.render(path, templateValues))
@@ -37,9 +47,19 @@ class MainPage(webapp2.RequestHandler):
 class Guestbook(webapp2.RequestHandler):
     def post(self):
  		input = self.request.get('phrase')
+		book = Book(title = 'fresh book', author = 'kevo', content = input).put()
+		
+		books = Book.all()
+		books.order("title")
+		bookResults = books.fetch(limit=40)
+		
 		templateValues = {
             'wookie': translateToWookie(input),
+			'bookResults' : bookResults
 		}
+		
+		
+		
 		path = os.path.join(os.path.dirname(__file__), 'base.html')
 		self.response.out.write(template.render(path, templateValues))
 		
