@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Wookie!</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="css/wookie.css" rel="stylesheet" media="screen">
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	    <script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+
+
+
+  <h1>Wookie Translator</h1>
+  <form action="/translate" method="post">
+	<div class="input-prepend">
+	  <input class="span5" id="prependedDropdownButton" name="phrase" type="text">
+	</div>
+	
+	
+    <div><button class="btn btn-large btn-primary" type="submit">Translate</button></div>
+  </form>
+
+<div class='translation'>
+	{{ wookie }}
+</div>
+
+<div>
+
+	<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.wookietranslator.com" data-text="Check out my Wookie Translation" data-size="large" data-count="none">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+
+<script>function fbs_click() {u=location.href;t=document.title;window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(u)+'&t='+encodeURIComponent(t),'sharer','toolbar=0,status=0,width=626,height=436');return false;}</script><a rel="nofollow" href="http://www.facebook.com/share.php?u=<;url>" onclick="return fbs_click()" target="_blank">Share on Facebook</a>
+
+
+</div>
+
+
+
+</body>
+</html>

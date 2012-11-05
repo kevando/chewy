@@ -16,31 +16,53 @@
 #
 import cgi
 import webapp2
-
+import random
+import os
+from google.appengine.ext.webapp import template
 from google.appengine.api import users
 
+
 class MainPage(webapp2.RequestHandler):
-    def get(self):
-        self.response.out.write("""
-          <html>
-            <body>
-			  <h1>Enter something you would like to have translated to Wookie</h1>
-              <form action="/sign" method="post">
-                <div><input name="phrase" /></div>
-                <div><input type="submit" value="Sign Guestbook"></div>
-              </form>
-            </body>
-          </html>""")
+	def get(self):
+		
+		templateValues = {
+            'url': 'test variable',
+		}
+		path = os.path.join(os.path.dirname(__file__), 'base.html')
+		self.response.out.write(template.render(path, templateValues))
+#		self.response.out.write(template.render('base.html', {}))
+
 
 
 class Guestbook(webapp2.RequestHandler):
     def post(self):
-        self.response.out.write('<html><body>Your Wookie Said:<pre>')
-        self.response.out.write('uuughhhguhh hhguhuhuhgg')
-#        self.response.out.write(cgi.escape(self.request.get('content')))
+ 		input = self.request.get('phrase')
+		templateValues = {
+            'wookie': translateToWookie(input),
+		}
+		path = os.path.join(os.path.dirname(__file__), 'base.html')
+		self.response.out.write(template.render(path, templateValues))
+		
+ #     	self.response.out.write(cgi.escape(translateToWookie(self.request.get('phrase'))))
 #       self.response.out.write(cgi.escape(self.request.get('phrase')))
-        self.response.out.write('</pre></body></html>')
+#        self.response.out.write('</pre></body></html>')
 
 app = webapp2.WSGIApplication([('/', MainPage),
-                              ('/sign', Guestbook)],
+                              ('/translate', Guestbook)],
                               debug=True)
+
+
+
+def translateToWookie(englishWord):
+	wookieLanguage = ['huurh ', 'uughghhhgh ','uuh ','raaaaaahhgh ','uughguughhhghghghhhgh ']
+	random.shuffle(wookieLanguage)
+	i = englishWord.__len__()/5 + 1
+	translation = ""
+	for num in range(0,i):
+		translation += wookieLanguage[num]
+
+	return translation
+
+
+
+
