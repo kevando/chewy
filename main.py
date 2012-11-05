@@ -54,7 +54,7 @@ app = webapp2.WSGIApplication([('/', MainPage),
 
 
 def translateToWookie(englishWord):
-	wookieLanguage = ['huurh ', 'uughghhhgh ','uuh ','raaaaaahhgh ','uughguughhhghghghhhgh ']
+	wookieLanguage = ['huurh ', 'uughghhhgh ','uuh ','raaaaaahhgh ','uughguughhhghghghhhgh ', 'huuguughghg ','aarrragghuuhw ','aaaaahnr ']
 	random.shuffle(wookieLanguage)
 	i = englishWord.__len__()/5 + 1
 	translation = ""
