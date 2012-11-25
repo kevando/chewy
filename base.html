@@ -1,56 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Wookie!</title>
+	<title>Wookie Translator! uughhuuurhgghhh</title>
+	<meta name="description" content="Chewy Translations">
+	<meta name="keywords" content="ughhughhug,hhhaaraarrruughh,warrhhghhh,auuughhhahhhrwwwaaa">
+	<meta name="author" content="Ståle Refsnes">
 	<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
 	<link href="css/wookie.css" rel="stylesheet" media="screen">
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	    <script src="js/bootstrap.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-36085839-1']);
+	  _gaq.push(['_trackPageview']);
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	</script>
 </head>
 <body>
 
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span9">
+          <div class="hero-unit">
+            <h1><a href='/'>Wookie Translator</a></h1>
+            <p>A simple tool that helps you talk with Chewy.</p>
+          <div class="row-fluid">
+            <div class="span6">
+			  <form method="post">
+	
+              <textarea <textarea rows="5" placeholder="Enter Text..." name="phrase"></textarea>
+            </div><!--/span-->
+            <div class="span5">
+              {{ wookie }}
+            </div><!--/span-->
+</div>
+<div><button class="btn btn-large btn-primary" type="submit">Translate</button></div>
+</form>
+          </div>
+          
+          <div class="row-fluid">
+            <div class="span4">
+              <p>
+				<a onClick="_gaq.push(['_trackEvent', 'Feedback', 'Clicked', 'To Share']);"href="#myModal" role="button" class="btn feed-back btn-mini" data-toggle="modal">Feed Back</a>
+				
+				<a onClick="_gaq.push(['_trackEvent', 'Tweet', 'Clicked', 'To Share']);"href="https://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>
+				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+				
+				
+			  </p>
+            </div><!--/span-->
+          </div><!--/row-->
+        </div><!--/span-->
+      </div><!--/row-->
 
 
-  <h1><a href='/'>Wookie Translator</a></h1>
-  <form action="/translate" method="post">
-	<div class="input-prepend">
-	  <input placeholder='Type English...' class="span5" id="prependedDropdownButton" name="phrase" type="text">
+	<!-- Modal -->
+	<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	    <h3 id="myModalLabel">Feedback!</h3>
+	    <h4>I would love to hear what you think of this site!</h4>
+	  </div>
+	  <div class="modal-body">
+	    <form action="/email" method="post">
+		  <input type="text" name="subject" placeholder="Subject..."/><br>
+          <textarea <textarea rows="5" placeholder="Enter Text..." name="body"></textarea>
+	  <div class="modal-footer">
+	    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+	    <button class="btn btn-primary">Send</button>
+	</form>
+	  </div>
 	</div>
-	
-	
-    <div><button class="btn btn-large btn-primary" type="submit">Translate</button></div>
-  </form>
-
-<div class='translation'>
-	{{ wookie }}
-</div>
-
-<div>
-
-	<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.wookietranslator.com" data-text="Check out my Wookie Translation" data-size="large" data-count="none">Tweet</a>
-	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
-
-<script>function fbs_click() {u=location.href;t=document.title;window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(u)+'&t='+encodeURIComponent(t),'sharer','toolbar=0,status=0,width=626,height=436');return false;}</script><a rel="nofollow" href="http://www.facebook.com/share.php?u=<;url>" onclick="return fbs_click()" target="_blank">Share on Facebook</a>
-
-
-</div>
-
-
-
-<div class='books'>
-	
-	<ul>
-	{% for book in bookResults %}
-		<li>
-			{{ book.title }} - {{ book.content }}
-		</li>
-	{% endfor %}
-	</ul>	
-	
-	
-</div>
-
 
 
 </body>

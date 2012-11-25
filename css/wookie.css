@@ -1,2 +1,13 @@
 body{padding:20px}
 .translation{background-color:#FAFAFA;margin-bottom:20px;padding:15px;width:300px;border:solid #ccc 1px}
+
+.hero-unit {padding:5%}
+.hero-unit h1{font-size:50px;}
+
+.span5{padding:1%;background-color:#E0E0E0;border:solid 1px #B9B9B9;min-height:110px !important}
+
+td{border:solid 1px #B9B9B9;background:#E0E0E0;}
+
+.feed-back{margin-top:-13px;line-height:17px}
+
+textarea{width:85%}
