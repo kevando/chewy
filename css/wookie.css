@@ -3,14 +3,19 @@ body{padding:20px;}
 .translation{background-color:#FAFAFA;margin-bottom:20px;padding:15px;width:300px;border:solid #ccc 1px}
 .invalid-input{border:solid 1px red;}
 
-.hero-unit {padding:5%}
-.hero-unit h1{font-size:50px;/*font-family: 'Amatic SC', cursive;*/}
-
-.span5{padding:1%;background-color:#E0E0E0;border:solid 1px #B9B9B9;min-height:30px !important}
+h1{font-size:50px;font-family: 'Amatic SC', cursive;}
+h1 a{color:#555555}
+h1 a:hover{color:#000000}
+h3{font-size:12px;font-weight:normal;}
+h1, h2, h3 {line-height: 25px;}
+.span12{padding:1%;border:solid 0px #B9B9B9;min-height:30px !important;text-align:center;}
 
 td{border:solid 1px #B9B9B9;background:#E0E0E0;}
 
 .feed-back{margin-top:-13px;line-height:17px}
 
-textarea{width:85%}
 
+fieldset{width:380px;background-color:#f6f6f6;margin:0 auto;padding:15px;border-radius:7px;border:solid 1px #d2d2d2}
+.chew-btn{background-image:url('/img/chew-btn.png');padding:24px 59px 0px 0px;margin-left:8px;border-radius:7px;border:solid 0px;}
+.phrase{line-height:41px;width:300px;border-radius:7px}
+.translated p{width:392px;margin: 0 auto;background-color:#f6f6f6;padding:10px 10px 10px 10px;border-radius:10px;border:solid 1px #d2d2d2;text-align:left}

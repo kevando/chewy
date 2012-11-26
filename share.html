@@ -2,14 +2,16 @@
 
 
 {% block form %}
-    <input placeholder="{{ placeholder }}" name="phrase" disabled="disabled">
-    <button class="btn btn-small btn-primary" type="submit">Translatee</button>
+  <fieldset>
+    <input placeholder="{{ placeholder }}" name="phrase" disabled="disabled" class="phrase" style="width:255px;">
+    <button class="btn btn-large btn-primary" type="submit">Translate</button>
+  </fieldset>
 {% endblock %}
 
 
 {% block translate %}
-  <div class='translation' style='display:none'>
-    {{ translation }}
+  <div class='translation span12' style='display:none'>
+   <p> {{ translation }} </p>
   </div>
 
 <script>

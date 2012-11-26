@@ -2,8 +2,10 @@
 
 {% block form %}
   <form method="post" id="translate">
-    <input placeholder="{{ placeholder }}" name="phrase" class='phrase'>
-    <button class="btn btn-small btn-primary" type="submit">Translatee</button>
+	<fieldset>
+      <input placeholder="{{ placeholder }}" name="phrase" class='phrase'>
+      <button class="chew-btn" type="submit"></button>
+    </fieldset>
   </form>
 
 <script>
@@ -20,7 +22,7 @@ $('#translate').submit(function() {
 
 
 {% block translate %}
-  {{ translation }}
+ <p> {{ translation }} </p>
 {% endblock %}
 
 
