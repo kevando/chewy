@@ -92,11 +92,12 @@ class Email(webapp2.RequestHandler):
 
 		
 class ListAllTranslations(webapp2.RequestHandler):
-	def get(self):
+	def get(self,order):
 		self.response.out.write("<style>td{border:solid 1px #B9B9B9;background:#E0E0E0;font-family:courier;font-size:12px;padding:2px;}</style>")
-		self.response.out.write("<table><tr><td width='30'>ID</td><td width='160'>ENGLISH</td><td>WOOKIE</td><td width='200'>Date</td></tr></strong>")
+		self.response.out.write("<table><tr><td width='30'>ID</td><td width='200'>ENGLISH</td><td width='650'>WOOKIE</td><td width='200'>Date</td></tr></strong>")
 		translations = Translation.all()
 #		translations.order("english")
+		translations.order(order)
 		translationSet = translations.fetch(limit=10000)
 		for translated in translationSet:
 			self.response.out.write('<tr>')
@@ -110,7 +111,7 @@ class ListAllTranslations(webapp2.RequestHandler):
 		
 		
 
-app = webapp2.WSGIApplication([('/translations', ListAllTranslations),
+app = webapp2.WSGIApplication([('/translations/(.*)', ListAllTranslations),
 							  ('/share/(.*)', SharePage),
 							  ('/email', Email),
 							  ('/(.*)', MainPage)],
