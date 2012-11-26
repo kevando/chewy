@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+
+{% block form %}
+    <input placeholder="{{ placeholder }}" name="phrase" disabled="disabled">
+    <button class="btn btn-small btn-primary" type="submit">Translatee</button>
+{% endblock %}
+
+
+{% block translate %}
+  <div class='translation' style='display:none'>
+    {{ translation }}
+  </div>
+
+<script>
+    $("button").click(function () {
+	    $(".translation").show();
+	    $(".share").show();
+    });
+</script>
+
+{% endblock %}
+
+
+
+{% block share %}
+
+<a class='share' style='display:none' href='/'>Make your own!</a>
+{% endblock %}
+
+
+
+

@@ -34,38 +34,50 @@ class Translation(db.Model):
     url_key = db.IntegerProperty()
     touched = db.IntegerProperty()
     date = db.DateTimeProperty(auto_now_add=True)
+# ---------------------------------------------------------------------
 
 # Landing function
 class MainPage(webapp2.RequestHandler):
-	def get(self,urlKey):
-		
-		if(urlKey==''):
-			templateValues = {'wookie': '...'}
-		else:
-			tid = int(urlKey)
-			translation = Translation.get_by_id(tid)
-			templateValues = {'wookie': translation.wookie}
-			
-
-		path = os.path.join(os.path.dirname(__file__), 'base.html')
+	def get(self,urlKey):	
+		templateValues = {'placeholder':'Enter Human Language'}
+		path = os.path.join(os.path.dirname(__file__), 'main.html')
 		self.response.out.write(template.render(path, templateValues))
-		
+
 	def post(self,urlKey):
 		userInput = self.request.get('phrase')
-		allTranslations = Translation.all()
-		allTranslations.filter('english =',userInput)
+		newUrlKey =  translateToWookie(userInput)
+		tid = int(newUrlKey)
+		translation = Translation.get_by_id(tid)
+		templateValues = {'placeholder':translation.english,'translation':translation.wookie,'translationId':translation.key().id()}
+		path = os.path.join(os.path.dirname(__file__), 'translated.html')
+		self.response.out.write(template.render(path, templateValues))
+
+# ---------------------------------------------------------------------
+
+# Share function
+class SharePage(webapp2.RequestHandler):
+
+	def get(self,urlKey):	
+		try:
+		    urlKey
+		except NameError:
+		    urlKey = ''
 		
+		if(urlKey==''):
+			templateValues = {'placeholder':'no id exists or wahtever'}
+		if(urlKey!=''):
+			tid = int(urlKey)
+			translation = Translation.get_by_id(tid)
+			templateValues = {'placeholder':translation.wookie,'translation':translation.english}
 		
-		if(allTranslations.count() == 1):
-			result = allTranslations.get()
-			newUrlKey = str(result.key().id())
-		if(allTranslations.count() < 1):
-			newUrlKey =  translateToWookie(userInput)
-		if(allTranslations.count() > 1):
-			newUrlKey = "66666"
-			
-		self.redirect("/"+newUrlKey)
-		
+		path = os.path.join(os.path.dirname(__file__), 'share.html')
+		self.response.out.write(template.render(path, templateValues))
+
+
+# ---------------------------------------------------------------------
+
+
+# Email Lightbox		
 class Email(webapp2.RequestHandler):
     def post(self):
 		kev ="asdf"
@@ -99,6 +111,7 @@ class ListAllTranslations(webapp2.RequestHandler):
 		
 
 app = webapp2.WSGIApplication([('/translations', ListAllTranslations),
+							  ('/share/(.*)', SharePage),
 							  ('/email', Email),
 							  ('/(.*)', MainPage)],
                               debug=True)

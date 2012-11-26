@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block form %}
+  <form method="post" id="translate">
+    <input placeholder="{{ placeholder }}" name="phrase" class='phrase'>
+    <button class="btn btn-small btn-primary" type="submit">Translatee</button>
+  </form>
+
+<script>
+// Validate
+$('#translate').submit(function() {
+  if($('.phrase').val() == ''){
+	$('.phrase').addClass('invalid-input')
+    return false;
+  }
+});
+
+</script>
+{% endblock %}
+
+
+{% block translate %}
+  {{ translation }}
+{% endblock %}
+
+
+
+{% block share %}
+{% endblock %}
+
+
+
+

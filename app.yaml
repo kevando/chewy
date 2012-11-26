@@ -1,5 +1,5 @@
 application: chewtacca
-version: 2
+version: 3
 runtime: python27
 api_version: 1
 threadsafe: yes
@@ -14,8 +14,18 @@ handlers:
 - url: /img
   static_dir: img
 
+- url: /favicon.ico
+  static_files: img/favicon.ico
+  upload: img/favicon.ico
+
+- url: /robots.txt
+  static_files: /robots.txt
+  upload: /robots.txt
+
 - url: .*
   script: main.app
+  
+
 
 libraries:
 - name: webapp2
