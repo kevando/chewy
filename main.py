@@ -45,7 +45,7 @@ class MainPage(webapp2.RequestHandler):
 
 	def post(self,urlKey):
 		userInput = self.request.get('phrase')
-		newUrlKey =  translateToWookie(userInput)
+		newUrlKey = translateToWookie(userInput)
 		tid = int(newUrlKey)
 		translation = Translation.get_by_id(tid)
 		templateValues = {'placeholder':translation.english,'translation':translation.wookie,'translationId':translation.key().id()}
@@ -112,30 +112,49 @@ class ListAllTranslations(webapp2.RequestHandler):
 		
 
 app = webapp2.WSGIApplication([('/translations/(.*)', ListAllTranslations),
-							  ('/share/(.*)', SharePage),
+							  ('/uughghhhgh/(.*)', SharePage),
 							  ('/email', Email),
 							  ('/(.*)', MainPage)],
-                              debug=True)
+                              debug=False)
 
 
 
 def translateToWookie(englishWord):
-	wookieLanguage = ['huurh ', 'uughghhhgh ','uuh ','raaaaaahhgh ','uughguughhhghghghhhgh ', 'huuguughghg ','aarrragghuuhw ','aaaaahnr ','huurh ', 'uughghhhgh ','uuh ','raaaaaahhgh ','uughguughhhghghghhhgh ', 'huuguughghg ','aarrragghuuhw ','aaaaahnr ','huurh ', 'uughghhhgh ','uuh ','raaaaaahhgh ','uughguughhhghghghhhgh ', 'huuguughghg ','aarrragghuuhw ','aaaaahnr ','huurh ', 'uughghhhgh ','uuh ','raaaaaahhgh ','uughguughhhghghghhhgh ', 'huuguughghg ','aarrragghuuhw ','aaaaahnr ']
+	wookieLanguage = [	'huurh ',
+						'uughghhhgh ',
+						'uuh ',
+						'raaaaaahhgh ',
+						'hnnnhrrhhh ', 
+						'huuguughghg ',
+						'aarrragghuuhw ',
+						'aaaaahnr ',
+						'huurh ', 'uughghhhgh ',
+						'uuh ','raaaaaahhgh ',
+						'uughguughhhghghghhhgh ', 
+						'huuguughghg ','aarrragghuuhw ',
+						'aaaaahnr ','huurh ', 'uughghhhgh ',
+						'uuh ','raaaaaahhgh ','uughguughhhghghghhhgh ', 
+						'huuguughghg ','aarrragghuuhw ',
+						'aaaaahnr ','huurh ', 'uughghhhgh ',
+						'uuh ','raaaaaahhgh ',
+						'uughguughhhghghghhhgh ', 
+						'huuguughghg ','aarrragghuuhw ',
+						'awwgggghhh ','huurh ', 'wrrhwrwwhw ',
+						'wrrhw ','raaaaaahhgh ',
+						'uughguughhhghghghhhgh ', 
+						'huuguughghg ','aguhwwgggghhh ',
+						'aaaaahnr ']
 	random.shuffle(wookieLanguage)
-	i = englishWord.__len__()/5 + 1
+	i = englishWord.__len__()/6 + 1
 	translation = ""
 	for num in range(0,i):
 		translation += wookieLanguage[num]
 
-	newTranslation = Translation(english = englishWord, wookie = translation).put()
-
-	# need better way to get this data
-	allTranslations = Translation.all()
-	allTranslations.filter('english =',englishWord)
-	result = allTranslations.get()
-	newUrlKey = str(result.key().id())
+	newTranslation = Translation(english = englishWord, wookie = translation)
+	newTranslation.put()
+	newCorrectUrlKey = str(newTranslation.key().id())
 	
-	return newUrlKey
+	return newCorrectUrlKey
 
 
 

@@ -1,21 +1,26 @@
 div {border:solid black 0px}
-body{padding:20px;}
-.translation{background-color:#FAFAFA;margin-bottom:20px;padding:15px;width:300px;border:solid #ccc 1px}
+body{padding:0px;}
+.translation{margin-bottom:20px;padding:15px;width:300px;border:solid #ccc 1px}
 .invalid-input{border:solid 1px red;}
 
-h1{font-size:50px;font-family: 'Amatic SC', cursive;}
+h1{font-size:500%;font-family: 'Amatic SC', cursive;margin-top:5%}
 h1 a{color:#555555}
 h1 a:hover{color:#000000}
-h3{font-size:12px;font-weight:normal;}
-h1, h2, h3 {line-height: 25px;}
-.span12{padding:1%;border:solid 0px #B9B9B9;min-height:30px !important;text-align:center;}
-
+h3{font-size:120%;font-weight:normal;}
+.span12{border:solid 0px #B9B9B9;min-height:30px !important;text-align:center;}
+.share-container{padding:1%;}
 td{border:solid 1px #B9B9B9;background:#E0E0E0;}
 
-.feed-back{margin-top:-13px;line-height:17px}
+.feed-back{margin-top:-13px;line-height:17px}	
 
 
-fieldset{width:380px;background-color:#f6f6f6;margin:0 auto;padding:15px;border-radius:7px;border:solid 1px #d2d2d2}
-.chew-btn{background-image:url('/img/chew-btn.png');padding:24px 59px 0px 0px;margin-left:8px;border-radius:7px;border:solid 0px;}
-.phrase{line-height:41px;width:300px;border-radius:7px}
-.translated p{width:392px;margin: 0 auto;background-color:#f6f6f6;padding:10px 10px 10px 10px;border-radius:10px;border:solid 1px #d2d2d2;text-align:left}
+fieldset{width:50%;background-color:#f6f6f6;margin:0 auto;padding:15px;border-radius:7px;border:solid 1px #d2d2d2}
+.chew-btn{background-image:url('/img/chew-btn.png');padding:0px;width:50px;height:46px;margin-left:8px;border-radius:7px;border:solid 0px;}
+.chew-btn:hover{background-image:url('/img/chew-btn-active.png');}
+.chew-btn-active {background-image:url('/img/chew-btn-active.png');}
+
+.phrase{padding:1%;font-size:95%;width:80%;border-radius:7px}
+.translated p{width:51%;margin: 0 auto;background-color:#f6f6f6;padding:10px 10px 10px 10px;border-radius:10px;border:solid 1px #d2d2d2;text-align:left}
+.translation p{width:52%;}
+.disabled-input{width:80%;padding:1%;}
+input[disabled]{cursor: not-allowed;background-color: #FFF;

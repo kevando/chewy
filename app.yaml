@@ -19,7 +19,7 @@ handlers:
   upload: img/favicon.ico
 
 - url: /robots.txt
-  static_files: /robots.txt
+  static_files: robots.txt
   upload: /robots.txt
 
 - url: .*
