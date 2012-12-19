@@ -19,12 +19,12 @@ import webapp2
 import random
 import os
 from google.appengine.ext.webapp import template
-from google.appengine.api import users
 import datetime
 import urllib
 from google.appengine.ext import db
-from google.appengine.api import users
-from google.appengine.api import mail
+
+
+
 
 
 # Define Model
@@ -46,8 +46,7 @@ class MainPage(webapp2.RequestHandler):
 	def post(self,urlKey):
 		userInput = self.request.get('phrase')
 		newUrlKey = translateToWookie(userInput)
-		tid = int(newUrlKey)
-		translation = Translation.get_by_id(tid)
+		translation = Translation.get_by_id(newUrlKey)
 		templateValues = {'placeholder':translation.english,'translation':translation.wookie,'translationId':translation.key().id()}
 		path = os.path.join(os.path.dirname(__file__), 'translated.html')
 		self.response.out.write(template.render(path, templateValues))
@@ -73,23 +72,7 @@ class SharePage(webapp2.RequestHandler):
 		path = os.path.join(os.path.dirname(__file__), 'share.html')
 		self.response.out.write(template.render(path, templateValues))
 
-
 # ---------------------------------------------------------------------
-
-
-# Email Lightbox		
-class Email(webapp2.RequestHandler):
-    def post(self):
-		kev ="asdf"
-		message = mail.EmailMessage(sender="khabich@gmail.com",
-		                            subject=self.request.get('subject'))
-
-		message.to = "kevin.h@roybiv.net"
-		message.body = ' '+self.request.get('body')
-
-		message.send()
-		self.redirect("/")
-
 		
 class ListAllTranslations(webapp2.RequestHandler):
 	def get(self,order):
@@ -109,50 +92,49 @@ class ListAllTranslations(webapp2.RequestHandler):
 		#	translated.delete()	
 		self.response.out.write('</table>')
 		
-		
+# ---------------------------------------------------------------------
 
 app = webapp2.WSGIApplication([('/translations/(.*)', ListAllTranslations),
 							  ('/uughghhhgh/(.*)', SharePage),
-							  ('/email', Email),
 							  ('/(.*)', MainPage)],
                               debug=False)
 
-
+# ---------------------------------------------------------------------
 
 def translateToWookie(englishWord):
-	wookieLanguage = [	'huurh ',
-						'uughghhhgh ',
-						'uuh ',
-						'raaaaaahhgh ',
-						'hnnnhrrhhh ', 
-						'huuguughghg ',
-						'aarrragghuuhw ',
-						'aaaaahnr ',
-						'huurh ', 'uughghhhgh ',
-						'uuh ','raaaaaahhgh ',
-						'uughguughhhghghghhhgh ', 
-						'huuguughghg ','aarrragghuuhw ',
-						'aaaaahnr ','huurh ', 'uughghhhgh ',
-						'uuh ','raaaaaahhgh ','uughguughhhghghghhhgh ', 
-						'huuguughghg ','aarrragghuuhw ',
-						'aaaaahnr ','huurh ', 'uughghhhgh ',
-						'uuh ','raaaaaahhgh ',
-						'uughguughhhghghghhhgh ', 
-						'huuguughghg ','aarrragghuuhw ',
-						'awwgggghhh ','huurh ', 'wrrhwrwwhw ',
-						'wrrhw ','raaaaaahhgh ',
-						'uughguughhhghghghhhgh ', 
-						'huuguughghg ','aguhwwgggghhh ',
-						'aaaaahnr ']
+	wookieLanguage = [	'huurh',
+						'uughghhhgh',
+						'uugggh',
+						'raaaaaahhgh',
+						'hnnnhrrhhh', 
+						'huuguughghg',
+						'aarrragghuuhw',
+						'aaahnruh',
+						'huurh','uughghhhgh',
+						'uggguh','raaaaaahhgh',
+						'uughguughhhghghghhhgh', 
+						'huuguughghg','aarrragghuuhw',
+						'aaaaahnr','huurh','uughghhhgh',
+						'uuh','raaaaaahhgh','uughguughhhghghghhhgh', 
+						'huuguughghg','aarrragghuuhw',
+						'aaaaahnr','huurh','uughghhhgh',
+						'uuh','raaaaaahhgh',
+						'uughguughhhghghghhhgh', 
+						'huuguughghg','aarrragghuuhw',
+						'awwgggghhh','huurh','wrrhwrwwhw',
+						'wrrhw','raaaaaahhgh',
+						'uughguughhhghghghhhgh', 
+						'huuguughghg','aguhwwgggghhh',
+						'aaaaahnr']
 	random.shuffle(wookieLanguage)
 	i = englishWord.__len__()/6 + 1
 	translation = ""
 	for num in range(0,i):
-		translation += wookieLanguage[num]
+		translation += wookieLanguage[num]+' '
 
 	newTranslation = Translation(english = englishWord, wookie = translation)
 	newTranslation.put()
-	newCorrectUrlKey = str(newTranslation.key().id())
+	newCorrectUrlKey = int(newTranslation.key().id())
 	
 	return newCorrectUrlKey
 

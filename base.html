@@ -6,7 +6,12 @@
 	<meta name="keywords" content="ughhughhug,hhhaaraarrruughh,warrhhghhh,auuughhhahhhrwwwaaa">
 	<meta name="author" content="Kevando">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
- 	<link rel="image_src" type="image/jpeg" src="http://4.chewtacca.appspot.com/img/chew-btn.png">
+	<meta property="og:title" content="Wookie Translator" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="http://www.wookietranslator.com" />
+	<meta property="og:description" content="Chewy Translations" />
+	<meta property="og:image" content="http://www.wookietranslator.com/img/wookie.png" />
+ 	<link rel="image_src" type="image/png" src="/img/chew-btn.png">
 	<link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
 	<link href="/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
 	<link href="/css/wookie.css" rel="stylesheet" media="screen">
@@ -23,30 +28,42 @@
 	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 	  })();
 	</script>
+	<!-- Preload Images -->
+	<script type="text/javascript">
+	if (document.images) {
+	    img1 = new Image();
+	    img1.src = "/img/chew-btn-active.png";
+	    img2 = new Image();
+	    img2.src = "/img/chew-btn.png";
+	}
+	</script>
+	
 </head>
 <body>
-<div class="span12">
-  <h1><a href='/'>Wookie Translator</a></h1>
-  <h3>A simple tool that helps you talk with Chewy.</h3>
-  <div class="row-fluid">
-    <div class="span12">
-      <div class="input-container">
-        {% block form %}input{% endblock %}
-      </div>
-    </div><!--/span5-->
-  </div> <!-- /row-fluid -->
-  <div class="row-fluid">
-       <div class="span12 translated">
-         {% block translate %}{% endblock %}
-       </div><!--/span5-->
-     </div><!--row-fluid -->
-     <div class="row-fluid">
-       <div class="span12 share-container">
-         {% block share %}{% endblock %}
-       </div><!--/span5-->
-     </div><!-- fluid-row -->
-</div><!--/span-->
 
-
+	<div class='container'>
+		<div class='wrapper-header'>
+		  <h1><a href='/'>Wookie Translator</a></h1>
+		  <h3>A simple tool that helps you talk with Chewy.</h3>
+		</div>
+		<div class='wrapper-input'>
+        	{% block form %}input{% endblock %}
+		</div>
+		<div class='wrapper-translated'>
+		  {% block translate %}{% endblock %}
+		</div>
+		<div class='wrapper-share'>
+		  {% block share %}{% endblock %}
+		</div>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
 </body>
 </html>

@@ -1,26 +1,48 @@
-div {border:solid black 0px}
-body{padding:0px;}
-.translation{margin-bottom:20px;padding:15px;width:300px;border:solid #ccc 1px}
+body{padding:0;margin:0; background: url('/img/chew-btn-active.png') no-repeat -9999px -9999px; }
+.translation{margin-bottom:20px;padding-top:15px;}
 .invalid-input{border:solid 1px red;}
 
 h1{font-size:500%;font-family: 'Amatic SC', cursive;margin-top:5%}
 h1 a{color:#555555}
 h1 a:hover{color:#000000}
 h3{font-size:120%;font-weight:normal;}
-.span12{border:solid 0px #B9B9B9;min-height:30px !important;text-align:center;}
-.share-container{padding:1%;}
-td{border:solid 1px #B9B9B9;background:#E0E0E0;}
 
 .feed-back{margin-top:-13px;line-height:17px}	
 
 
-fieldset{width:50%;background-color:#f6f6f6;margin:0 auto;padding:15px;border-radius:7px;border:solid 1px #d2d2d2}
+fieldset{background-color:#f6f6f6;margin:0 auto;padding:15px;border-radius:7px;border:solid 1px #d2d2d2}
 .chew-btn{background-image:url('/img/chew-btn.png');padding:0px;width:50px;height:46px;margin-left:8px;border-radius:7px;border:solid 0px;}
 .chew-btn:hover{background-image:url('/img/chew-btn-active.png');}
 .chew-btn-active {background-image:url('/img/chew-btn-active.png');}
 
-.phrase{padding:1%;font-size:95%;width:80%;border-radius:7px}
-.translated p{width:51%;margin: 0 auto;background-color:#f6f6f6;padding:10px 10px 10px 10px;border-radius:10px;border:solid 1px #d2d2d2;text-align:left}
-.translation p{width:52%;}
+.phrase{padding:1%;font-size:95%;width:86%;border-radius:7px}
+.wrapper-translated p{margin: 0 auto;background-color:#f6f6f6;padding:10px 10px 10px 10px;border-radius:10px;border:solid 1px #d2d2d2;text-align:left}
 .disabled-input{width:80%;padding:1%;}
-input[disabled]{cursor: not-allowed;background-color: #FFF;
+input[disabled]{cursor: not-allowed;background-color: #FFF;}
+
+
+.wrapper-header{width:358px;margin:0 auto;}
+.wrapper-input{width:600px;margin:0 auto;}
+.wrapper-translated{width:600px;margin:0 auto}
+.wrapper-share{width:315px;margin:20px auto;border:Solid 0px black;}
+
+.fb-button{margin:2px;color:#496DB9;}
+.tw-button{margin:2px;color:#0AC2FF;}
+.share-text{font-weight:normal;}
+.share{margin-left:90px}
+
+.direct-link{cursor:pointer !important;width:293px;background-color:white !important;padding:4px;font-size:12px !important}
+
+
+@media (max-width: 350px)  {
+	.wrapper-header{width:300px;}
+	.wrapper-input{width:300px;}
+	.wrapper-translated{width:300px}
+	.wrapper-share{width:300px;}
+	h1{font-size:400%;}
+	h3{font-size:100%;font-weight:normal;}
+	button{margin-top:10px;}
+	.share{margin-left:0px}
+	
+}
+

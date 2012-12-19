@@ -22,13 +22,62 @@ $('#translate').submit(function() {
 
 
 {% block translate %}
- <p> {{ translation }} </p>
+ <p><strong>Wookie Translation:</strong> {{ translation }} </p>
 {% endblock %}
 
 
 
 {% block share %}
-<a href='/uughghhhgh/{{ translationId }}'>Share Your Translation</a>
+<div id='fb-root'></div>
+  <script src='http://connect.facebook.net/en_US/all.js'></script>
+  <script> 
+    FB.init({appId: "45549182362", status: true, cookie: true});
+
+    function postToFeed() {
+
+      // calling the API ...
+      var obj = {
+        method: 'feed',
+        redirect_uri: 'http://www.wookietranslator.com',
+        link: 'http://www.wookietranslatorlator.com/uughghhhgh/{{ translationId }}',
+        name: 'Wookie Translator',
+        caption: 'Chewy Translations',
+        description: 'uuughh hnnnhrrhhh awwgggghhh wrrhwrwwhw!'
+      };
+
+      function callback(response) {
+        document.getElementById('msg').innerHTML = "Post ID: " + response['post_id'];
+      }
+
+      FB.ui(obj, callback);
+    }
+
+	function SelectAll(id){
+	    document.getElementById(id).focus();
+	    document.getElementById(id).select();
+	}
+
+  
+  </script>
+
+<p>
+	<span class='share-text'>Share your translation on </span> 
+	<a href="#" class='fb-button' onclick=" _gaq.push(['_trackEvent', 'Translated Page', 'Share', 'Facebook']); postToFeed(); return false;">
+		Facebook 
+	</a>or 
+	<a class="tw-button" onClick="_gaq.push(['_trackEvent', 'Translated Page', 'Share', 'Twitter']);"href="http://twitter.com/share?url=http://www.wookietranslator.com/uughghhhgh/{{ translationId }}" target="_blank" rel="nofollow">
+		Twitter
+	</a>
+</p>
+<p>
+	<input readonly="readonly" value="http://www.wookietranslator.com/uughghhhgh/{{ translationId }}" class="direct-link" onClick="SelectAll('directlink');" id="directlink" />
+</p>
+
+
+
+
+
+
 {% endblock %}
 
 
