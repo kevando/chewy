@@ -25,8 +25,6 @@ from google.appengine.ext import db
 
 
 
-
-
 # Define Model
 class Translation(db.Model):
     english = db.StringProperty(multiline=True)
