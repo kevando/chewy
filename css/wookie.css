@@ -5,7 +5,7 @@ body{padding:0;margin:0; background: url('/img/chew-btn-active.png') no-repeat -
 h1{font-size:500%;font-family: 'Amatic SC', cursive;margin-top:5%}
 h1 a{color:#555555}
 h1 a:hover{color:#000000}
-h3{font-size:120%;font-weight:normal;}
+h3{font-size:120%;font-weight:normal;margin-left: 8px;}
 
 .feed-back{margin-top:-13px;line-height:17px}	
 
@@ -15,8 +15,8 @@ fieldset{background-color:#f6f6f6;margin:0 auto;padding:15px;border-radius:7px;b
 .chew-btn:hover{background-image:url('/img/chew-btn-active.png');}
 .chew-btn-active {background-image:url('/img/chew-btn-active.png');}
 
-.phrase{padding:1%;font-size:95%;width:86%;border-radius:7px}
-.wrapper-translated p{margin: 0 auto;background-color:#f6f6f6;padding:10px 10px 10px 10px;border-radius:10px;border:solid 1px #d2d2d2;text-align:left}
+.phrase{padding:10px;font-size:100%;width:84%;border-radius:7px}
+.wrapper-translated p{margin: 0 auto;background-color:#f6f6f6;padding:15px 10px 15px 15px;border-radius:10px;border:solid 1px #d2d2d2;text-align:left}
 .disabled-input{width:80%;padding:1%;}
 input[disabled]{cursor: not-allowed;background-color: #FFF;}
 
@@ -32,6 +32,12 @@ input[disabled]{cursor: not-allowed;background-color: #FFF;}
 .share{margin-left:90px}
 
 .direct-link{cursor:pointer !important;width:293px;background-color:white !important;padding:4px;font-size:12px !important}
+.footer{position:absolute;bottom:0px;right:30px;}
+.footer p{padding:10px;font-size:80%;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";filter: alpha(opacity=50);-moz-opacity: 0.5;-khtml-opacity: 0.5;opacity: 0.5;}
+.footer p:hover{font-size:90%;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";filter: alpha(opacity=50);-moz-opacity: 0.5;-khtml-opacity: 0.5;opacity: 1;}
+
+
+
 
 
 @media (max-width: 350px)  {
