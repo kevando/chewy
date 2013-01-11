@@ -61,7 +61,7 @@ $('#translate').submit(function() {
   </script>
 
 <p>
-	<span class='share-text'>Share your translation on </span> 
+	<span class='share-text'>Share <b><i>this</i></b> translation on </span> 
 	<a href="#" class='fb-button' onclick=" _gaq.push(['_trackEvent', 'Translated Page', 'Share', 'Facebook']); postToFeed(); return false;">
 		Facebook 
 	</a>or 
@@ -70,7 +70,7 @@ $('#translate').submit(function() {
 	</a>
 </p>
 <p>
-	<input readonly="readonly" value="http://www.wookietranslator.com/uughghhhgh/{{ translationId }}" class="direct-link" onClick="SelectAll('directlink');" id="directlink" />
+	<input readonly="readonly" value="http://www.wookietranslator.com/uughghhhgh/{{ translationId }}" class="direct-link" onClick="_gaq.push(['_trackEvent', 'Translated Page', 'Share', 'link text']); SelectAll('directlink');" id="directlink" />
 </p>
 
 

@@ -22,6 +22,8 @@ from google.appengine.ext.webapp import template
 import datetime
 import urllib
 from google.appengine.ext import db
+from google.appengine.ext import webapp
+from google.appengine.ext.webapp.util import run_wsgi_app
 
 
 
@@ -32,6 +34,8 @@ class Translation(db.Model):
     url_key = db.IntegerProperty()
     touched = db.IntegerProperty()
     date = db.DateTimeProperty(auto_now_add=True)
+    ip_address = db.StringProperty(multiline=False)
+
 # ---------------------------------------------------------------------
 
 # Landing function
@@ -43,7 +47,7 @@ class MainPage(webapp2.RequestHandler):
 
 	def post(self,urlKey):
 		userInput = self.request.get('phrase')
-		newUrlKey = translateToWookie(userInput)
+		newUrlKey = translateToWookie(userInput,self.request.remote_addr)
 		translation = Translation.get_by_id(newUrlKey)
 		templateValues = {'placeholder':translation.english,'translation':translation.wookie,'translationId':translation.key().id()}
 		path = os.path.join(os.path.dirname(__file__), 'translated.html')
@@ -75,7 +79,7 @@ class SharePage(webapp2.RequestHandler):
 class ListAllTranslations(webapp2.RequestHandler):
 	def get(self,order):
 		self.response.out.write("<style>td{border:solid 1px #B9B9B9;background:#E0E0E0;font-family:courier;font-size:12px;padding:2px;}</style>")
-		self.response.out.write("<table><tr><td width='30'>ID</td><td width='200'>ENGLISH</td><td width='650'>WOOKIE</td><td width='200'>Date</td></tr></strong>")
+		self.response.out.write("<table><tr><td width='30'>ID</td><td width='200'>ENGLISH</td><td width='650'>WOOKIE</td><td width='200'>Date</td><td>IP</td></tr></strong>")
 		translations = Translation.all()
 #		translations.order("english")
 		translations.order(order)
@@ -86,6 +90,7 @@ class ListAllTranslations(webapp2.RequestHandler):
 			self.response.out.write('<td>'+translated.english+'</td>')
 			self.response.out.write('<td>'+translated.wookie+'</td>')
 			self.response.out.write('<td>'+str(translated.date)+'</td>')
+			self.response.out.write('<td>'+str(translated.ip_address)+'</td>')
 			self.response.out.write('</tr>')
 		#	translated.delete()	
 		self.response.out.write('</table>')
@@ -99,7 +104,7 @@ app = webapp2.WSGIApplication([('/translations/(.*)', ListAllTranslations),
 
 # ---------------------------------------------------------------------
 
-def translateToWookie(englishWord):
+def translateToWookie(englishWord,ip):
 	wookieLanguage = [	'huurh',
 						'uughghhhgh',
 						'uugggh',
@@ -116,7 +121,7 @@ def translateToWookie(englishWord):
 						'uuh','raaaaaahhgh','uughguughhhghghghhhgh', 
 						'huuguughghg','aarrragghuuhw',
 						'aaaaahnr','huurh','uughghhhgh',
-						'uuh','raaaaaahhgh',
+						'wuuh','raaaaaahhgh',
 						'uughguughhhghghghhhgh', 
 						'huuguughghg','aarrragghuuhw',
 						'awwgggghhh','huurh','wrrhwrwwhw',
@@ -130,7 +135,46 @@ def translateToWookie(englishWord):
 	for num in range(0,i):
 		translation += wookieLanguage[num]+' '
 
-	newTranslation = Translation(english = englishWord, wookie = translation)
+	# now do some specific translations for frequent input
+	if(englishWord == 'hi' or englishWord == 'hello'):
+		translation = 'nuuawh'
+
+	if(englishWord in wookieLanguage):
+		translation = 'i am wookie, hear me roar!'
+	
+	if(englishWord == 'A simple tool that helps you talk with Chewy.' or englishWord == 'A simple tool that helps you talk with Chewy'):
+		translation = 'aarrragghuuhw aarrragghuuhw raaaaaahhgh'
+
+		
+	if(englishWord.find('uughghhhgh') != -1 or
+	englishWord.find('raaaaaahhgh') != -1 or
+	englishWord.find('huuguughghg') != -1 or
+	englishWord.find('uughguughhhghghghhhgh') != -1 or
+	englishWord.find('aarrragghuuhw') != -1 or
+	englishWord.find('uughguughhhghghghhhgh') != -1 or
+	englishWord.find('wrrhwrwwhw') != -1 or
+	englishWord.find('huuguughghg') != -1 or
+	englishWord.find('hnnnhrrhhh') != -1 or
+	englishWord.find('aarrragghuuhw') != -1 or
+	englishWord.find('aarrragghuuhw') != -1 or
+	englishWord.find('huuguughghg') != -1 or
+	englishWord.find('uughghhhgh') != -1 or
+	englishWord.find('aaahnruh') != -1 or
+	englishWord.find('raaaaaahhgh') != -1 or
+	englishWord.find('uughghhhgh') != -1 or
+	englishWord.find('uughguughhhghghghhhgh') != -1 or
+	englishWord.find('aguhwwgggghhh') != -1 or
+	englishWord.find('huuguughghg') != -1 or
+	englishWord.find('aarrragghuuhw') != -1 or
+	englishWord.find('uughghhhgh') != -1 or
+	englishWord.find('huuguughghg') != -1 or
+	englishWord.find('raaaaaahhgh') != -1 or
+	englishWord.find('awwgggghhh') != -1):
+		translation = '** Invalid Input! Language Recognized as Wookie**'	
+		
+					
+
+	newTranslation = Translation(english = englishWord, wookie = translation, ip_address = ip)
 	newTranslation.put()
 	newCorrectUrlKey = int(newTranslation.key().id())
 	
