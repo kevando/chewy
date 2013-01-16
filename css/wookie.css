@@ -14,7 +14,7 @@ fieldset{background-color:#f6f6f6;margin:0 auto;padding:15px;border-radius:7px;b
 .chew-btn{background-image:url('/img/chew-btn.png');padding:0px;width:50px;height:46px;margin-left:8px;border-radius:7px;border:solid 0px;}
 .chew-btn:hover{background-image:url('/img/chew-btn-active.png');}
 .chew-btn-active {background-image:url('/img/chew-btn-active.png');}
-.chew-btn:active{background-image:url('/img/chew-active.png')}
+.chew-btn:active{background-image:url('/img/chew-btn-active.png')}
 
 .phrase{padding:10px;font-size:100%;width:84%;border-radius:7px}
 .wrapper-translated p{margin: 0 auto;background-color:#f6f6f6;padding:15px 10px 15px 15px;border-radius:10px;border:solid 1px #d2d2d2;text-align:left}
