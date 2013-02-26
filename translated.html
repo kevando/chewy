@@ -4,7 +4,7 @@
   <form method="post" id="translate">
 	<fieldset>
       <input placeholder="{{ placeholder }}" name="phrase" class='phrase'>
-      <button class="chew-btn chew-btn-active" type="submit"></button>
+      <button class="chew-btn chew-btn-active" type="submit" onclick=" _gaq.push(['_trackEvent', ' Main Page', 'Click Translate button', 'nth page']);"></button>
     </fieldset>
   </form>
 
@@ -34,19 +34,20 @@ $('#translate').submit(function() {
     FB.init({appId: "45549182362", status: true, cookie: true});
 
     function postToFeed() {
-
       // calling the API ...
       var obj = {
         method: 'feed',
         redirect_uri: 'http://www.wookietranslator.com',
-        link: 'http://www.wookietranslatorlator.com/uughghhhgh/{{ translationId }}',
+        link: 'http://www.wookietranslator.com/uughghhhgh/{{ translationId }}',
         name: 'Wookie Translator',
         caption: 'Chewy Translations',
+  		picture: 'http://wookietranslator.com/img/fb-icon75-75.png',
         description: 'uuughh hnnnhrrhhh awwgggghhh wrrhwrwwhw!'
       };
 
       function callback(response) {
         document.getElementById('msg').innerHTML = "Post ID: " + response['post_id'];
+//		alert('kev');
       }
 
       FB.ui(obj, callback);
@@ -65,7 +66,7 @@ $('#translate').submit(function() {
 	<a href="#" class='fb-button' onclick=" _gaq.push(['_trackEvent', 'Translated Page', 'Share', 'Facebook']); postToFeed(); return false;">
 		Facebook 
 	</a>or 
-	<a class="tw-button" onClick="_gaq.push(['_trackEvent', 'Translated Page', 'Share', 'Twitter']);"href="http://twitter.com/share?url=http://www.wookietranslator.com/uughghhhgh/{{ translationId }}" target="_blank" rel="nofollow">
+	<a class="tw-button twitter popup" onClick="_gaq.push(['_trackEvent', 'Translated Page', 'Share', 'Twitter']);"href="http://twitter.com/share?url=http://www.wookietranslator.com/uughghhhgh/{{ translationId }}" target="_blank" rel="nofollow">
 		Twitter
 	</a>
 </p>
@@ -73,8 +74,23 @@ $('#translate').submit(function() {
 	<input readonly="readonly" value="http://www.wookietranslator.com/uughghhhgh/{{ translationId }}" class="direct-link" onClick="_gaq.push(['_trackEvent', 'Translated Page', 'Share', 'link text']); SelectAll('directlink');" id="directlink" />
 </p>
 
+<script type="text/javascript">
+ $('.popup').click(function(event) {
+    var width  = 575,
+        height = 400,
+        left   = ($(window).width()  - width)  / 2,
+        top    = ($(window).height() - height) / 2,
+        url    = this.href,
+        opts   = 'status=1' +
+                 ',width='  + width  +
+                 ',height=' + height +
+                 ',top='    + top    +
+                 ',left='   + left;
 
+    window.open(url, 'twitte', opts);
 
+    return false;
+  });</script>
 
 
 

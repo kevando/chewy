@@ -65,12 +65,14 @@ class SharePage(webapp2.RequestHandler):
 		    urlKey = ''
 		
 		if(urlKey==''):
-			templateValues = {'placeholder':'no id exists or wahtever'}
+			self.redirect('/')
 		if(urlKey!=''):
 			tid = int(urlKey)
 			translation = Translation.get_by_id(tid)
-			templateValues = {'placeholder':translation.wookie,'translation':translation.english}
-		
+			if translation != None:
+				templateValues = {'placeholder':translation.wookie,'translation':translation.english}
+			else:
+				templateValues = {'placeholder':'uhhhughh arrahhrrhhhh','translation':'This isn\'t the page you\'re looking for...'}
 		path = os.path.join(os.path.dirname(__file__), 'share.html')
 		self.response.out.write(template.render(path, templateValues))
 
