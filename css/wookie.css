@@ -25,14 +25,14 @@ input[disabled]{cursor: not-allowed;background-color: #FFF;}
 .wrapper-header{width:358px;margin:0 auto;}
 .wrapper-input{width:600px;margin:0 auto;}
 .wrapper-translated{width:600px;margin:0 auto}
-.wrapper-share{width:315px;margin:70px auto;border:Solid 0px black;}
+.wrapper-share{width:460px;margin:70px auto;border:Solid 0px black;text-align:center;}
 
 .fb-button{margin:2px;color:#496DB9;}
 .tw-button{margin:2px;color:#0AC2FF;}
 .share-text{font-weight:normal;}
 .share{margin-left:90px}
 
-.direct-link{cursor:pointer !important;width:293px;background-color:white !important;padding:4px;font-size:12px !important;border:none;color:#979797}
+.direct-link{cursor:pointer !important;width:100%;text-align: center;background-color:white !important;padding:4px;font-size:12px !important;border:none;color:#979797}
 .footer{position:absolute;bottom:0px;right:30px;}
 .footer p{padding:10px;font-size:80%;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";filter: alpha(opacity=50);-moz-opacity: 0.5;-khtml-opacity: 0.5;opacity: 0.5;}
 .footer p:hover{font-size:90%;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";filter: alpha(opacity=50);-moz-opacity: 0.5;-khtml-opacity: 0.5;opacity: 1;}
