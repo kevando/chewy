@@ -1,3 +1,9 @@
+* {
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
 body{padding:0;margin:0; background: url('/img/chew-btn-active.png') no-repeat -9999px -9999px; }
 .translation{margin-bottom:20px;padding-top:15px;}
 .invalid-input{border:solid 1px red;}
@@ -22,10 +28,11 @@ fieldset{background-color:#f6f6f6;margin:0 auto;padding:15px;border-radius:7px;b
 input[disabled]{cursor: not-allowed;background-color: #FFF;}
 
 
-.wrapper-header{width:358px;margin:0 auto;}
-.wrapper-input{width:600px;margin:0 auto;}
-.wrapper-translated{width:600px;margin:0 auto}
-.wrapper-share{width:460px;margin:70px auto;border:Solid 0px black;text-align:center;}
+.wrapper-header{text-align:center;margin:0 auto;}
+.wrapper-header a:hover{text-decoration: none;}
+.wrapper-input{max-width:600px;margin:0 auto;}
+.wrapper-translated{max-width:600px;margin:0 auto}
+.wrapper-share{margin:70px auto;border:Solid 0px black;text-align:center;}
 
 .fb-button{margin:2px;color:#496DB9;}
 .tw-button{margin:2px;color:#0AC2FF;}
@@ -36,10 +43,14 @@ input[disabled]{cursor: not-allowed;background-color: #FFF;}
 .footer{position:absolute;bottom:0px;right:30px;}
 .footer p{padding:10px;font-size:80%;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";filter: alpha(opacity=50);-moz-opacity: 0.5;-khtml-opacity: 0.5;opacity: 0.5;}
 .footer p:hover{font-size:90%;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";filter: alpha(opacity=50);-moz-opacity: 0.5;-khtml-opacity: 0.5;opacity: 1;}
-.container{padding:2%;}
+.container{padding:6% 0 2% 0;}
 
-
-
+.wookington-header{background: #000;height:auto;width:100%;text-align: center;display: inline-block;}
+.wookington-header:hover{text-decoration: none}
+.wookington-header:hover > h4 span{text-decoration: underline}
+.wookington-header h4{color:white;font-weight: 300;letter-spacing: 0.06em;margin: 5px;}
+.wookington-header h4 span{color:#f2e85a;font-weight: 500}
+.wookington-header h4 span .star-wars-title{color: #111;font-size: 27px;text-shadow: 0px 0px 0px yellow, 0px 0px yellow;font-weight: 600;letter-spacing: -0.03em;}
 
 @media (max-width: 350px)  {
 	.wrapper-header{width:300px;}
@@ -50,6 +61,15 @@ input[disabled]{cursor: not-allowed;background-color: #FFF;}
 	h3{font-size:100%;font-weight:normal;}
 	button{margin-top:10px;}
 	.share{margin-left:0px}
+
+	.wookington-header h4 span{width: 100%;}
 	
 }
+@media only screen and (max-width: 40em) { 
+	.wookington-header h4 span{display:block;}
+	.chew-btn{margin-left: 0px;}
+	.container{padding:1% 0 2% 0}
+
+	} /* max-width 640px, mobile-only styles, use when QAing mobile issues */
+
 

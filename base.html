@@ -11,6 +11,7 @@
 	<meta property="og:url" content="http://www.wookietranslator.com" />
 	<meta property="og:description" content="Chewy Translations" />
 	<meta property="og:image" content="http://www.wookietranslator.com/img/wookie.png" />
+	<meta name="viewport" content="width=device-width, user-scalable=no" />
  	<link rel="image_src" type="image/png" src="/img/chew-btn.png">
 	<link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
 	<link href="/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
@@ -36,15 +37,20 @@
 	    img2 = new Image();
 	    img2.src = "/img/chew-btn.png";
 	}
+	
+
 	</script>
 	
 </head>
 <body>
+	<a onClick="_gaq.push(['_trackEvent', 'wookington header', 'Click', 'stay up to date']);" class="wookington-header" id="wookington" href="https://instagram.com/wookingtonchew" target="_blank">
+		<h4><span>WOOKINGTON CHEW</span> Stay up to date on latest wookie news</h4>
+	</a>
 
 	<div class='container'>
 		<div class='wrapper-header'>
 		  <h1><a href='/'>Wookie Translator</a></h1>
-		  <h3>A simple tool that helps you talk with Chewy.</h3>
+		  <h3>A simple tool that helps you talk with Wookies.</h3>
 		</div>
 		<div class='wrapper-input'>
         	{% block form %}input{% endblock %}
@@ -57,9 +63,7 @@
 		</div>
 		
 	</div>
-	<div class='footer'>
-		<p>Built by <a onClick="_gaq.push(['_trackEvent', 'All Pages', 'Outbound', 'Kevando']);" href="http://www.kevinhabich.com">@Kevando</a></p>
-	</div>
+
 	
 	
 	
