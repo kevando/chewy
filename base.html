@@ -11,37 +11,15 @@
 	<meta property="og:url" content="http://www.wookietranslator.com" />
 	<meta property="og:description" content="Chewy Translations" />
 	<meta property="og:image" content="http://www.wookietranslator.com/img/wookie.png" />
-	<meta name="viewport" content="width=device-width, user-scalable=no" />
- 	<link rel="image_src" type="image/png" src="/img/chew-btn.png">
+	<meta name="viewport" content="width=device-width, user-scalable=no" />		
+	<link rel="image_src" type="image/png" src="/img/chew-btn.png">
+<!-- CSS -->
+	<link href='http://fonts.googleapis.com/css?family=Amatic+SC:700' rel='stylesheet' type='text/css'>
 	<link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
 	<link href="/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
 	<link href="/css/wookie.css" rel="stylesheet" media="screen">
-	<link href='http://fonts.googleapis.com/css?family=Amatic+SC:700' rel='stylesheet' type='text/css'>	
-	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	<script src="/js/bootstrap.min.js"></script>
-	<script type="text/javascript">
-	  var _gaq = _gaq || [];
-	  _gaq.push(['_setAccount', 'UA-36085839-1']);
-	  _gaq.push(['_trackPageview']);
-	  (function() {
-	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	  })();
-	</script>
-	<!-- Preload Images -->
-	<script type="text/javascript">
-	if (document.images) {
-	    img1 = new Image();
-	    img1.src = "/img/chew-btn-active.png";
-	    img2 = new Image();
-	    img2.src = "/img/chew-btn.png";
-	}
-	
+		
 
-	</script>
-	<script src="//cdn.optimizely.com/js/4360942172.js"></script>
-	
 </head>
 <body>
 	<a onClick="_gaq.push(['_trackEvent', 'wookington header', 'Click', 'stay up to date']);" class="wookington-header" id="wookington" href="https://instagram.com/wookingtonchew" target="_blank">
@@ -65,22 +43,33 @@
 		
 	</div>
 
+</body>
+<footer>
 
-	
-	<script type="text/javascript">
+<!-- Load jquery -->
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<!-- Load Bootstrap -->	
+<script src="/js/bootstrap.min.js"></script>
+<!-- Load Images -->
+<script type="text/javascript">
+	if (document.images) {
+	    img1 = new Image();
+	    img1.src = "/img/chew-btn-active.png";
+	    img2 = new Image();
+	    img2.src = "/img/chew-btn.png";
+	}
+</script>
+
+<!-- Load Segment -->
+<script type="text/javascript">
 
 !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
 
 analytics.load("V8k774grRkJCZvyKkAxIcaqaO0tnQUmy");
-
 analytics.page()
-
 }}();
+
 </script>
-	
-	
-	
-	
-	
-</body>
+</footer>
 </html>
+
