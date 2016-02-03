@@ -4,7 +4,7 @@
   <form method="post" id="translate">
 	<fieldset>
       <input placeholder="{{ placeholder }}" name="phrase" class='phrase'>
-      <button class="chew-btn chew-btn-active" type="submit" onclick=" _gaq.push(['_trackEvent', ' Main Page', 'Click Translate button', 'nth page']);"></button>
+      <button class="chew-btn chew-btn-active" type="submit" onclick="analytics.track('Click Translate button', {category: 'Main Page',label: 'nth page'});"></button>
     </fieldset>
   </form>
 
@@ -63,15 +63,15 @@ $('#translate').submit(function() {
 
 <p>
 	<span class='share-text'>Share <b><i>this</i></b> translation on </span> 
-	<a href="#" class='fb-button' onclick=" _gaq.push(['_trackEvent', 'Translated Page', 'Share', 'Facebook']); postToFeed(); return false;">
+	<a href="#" class='fb-button' onclick="analytics.track('Share', {category: 'Translated Page',label: 'Facebook'}); postToFeed(); return false;">
 		Facebook 
 	</a>or 
-	<a class="tw-button twitter popup" onClick="_gaq.push(['_trackEvent', 'Translated Page', 'Share', 'Twitter']);" href="http://twitter.com/share?url=http://www.wookietranslator.com/uughghhhgh/{{ translationId }}" target="_blank" rel="nofollow">
+	<a class="tw-button twitter popup" onClick="analytics.track('Share', {category: 'Translated Page',label: 'Twitter'});" href="http://twitter.com/share?url=http://www.wookietranslator.com/uughghhhgh/{{ translationId }}" target="_blank" rel="nofollow">
 		Twitter
 	</a>
 </p>
 <p>
-	<input readonly="readonly" value="http://www.wookietranslator.com/uughghhhgh/{{ translationId }}" class="direct-link" onClick="_gaq.push(['_trackEvent', 'Translated Page', 'Share', 'link text']); SelectAll('directlink');" id="directlink" />
+	<input readonly="readonly" value="http://www.wookietranslator.com/uughghhhgh/{{ translationId }}" class="direct-link" onClick="analytics.track('Share', {category: 'Translated Page',label: 'link text'}); SelectAll('directlink');" id="directlink" />
 </p>
 
 <script type="text/javascript">

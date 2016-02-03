@@ -4,7 +4,7 @@
   <form method="post" id="translate">
     <fieldset>
 	  <input placeholder="{{ placeholder }}" name="phrase" class='phrase'>
-      <button class="chew-btn" type="submit" onclick=" _gaq.push(['_trackEvent', ' Main Page', 'Click Translate button', 'Root page']);"></button>
+      <button class="chew-btn" type="submit" onclick="analytics.track('Click Translate button', {category: 'Main Page',label: 'Root page'});"></button>
     </fieldset>
   </form>
 

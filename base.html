@@ -18,11 +18,12 @@
 	<link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
 	<link href="/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
 	<link href="/css/wookie.css" rel="stylesheet" media="screen">
-		
+<!-- Load jquery -->
+	<script src="http://code.jquery.com/jquery-latest.js"></script>	
 
 </head>
 <body>
-	<a onClick="_gaq.push(['_trackEvent', 'wookington header', 'Click', 'stay up to date']);" class="wookington-header" id="wookington" href="https://instagram.com/wookingtonchew" target="_blank">
+	<a onClick="analytics.track('Click', {category: 'wookington header',label: 'stay up to date'});" class="wookington-header" id="wookington" href="https://instagram.com/wookingtonchew" target="_blank">
 		<h4><span>WOOKINGTON CHEW</span> Stay up to date on latest wookie news</h4>
 	</a>
 
@@ -46,8 +47,7 @@
 </body>
 <footer>
 
-<!-- Load jquery -->
-<script src="http://code.jquery.com/jquery-latest.js"></script>
+
 <!-- Load Bootstrap -->	
 <script src="/js/bootstrap.min.js"></script>
 <!-- Load Images -->
