@@ -21,6 +21,7 @@ handlers:
 - url: /robots.txt
   static_files: robots.txt
   upload: robots.txt
+  
 - url: /channel.html
   static_files: channel.html
   upload: channel.html
