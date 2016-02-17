@@ -11,7 +11,7 @@
 	<meta property="og:url" content="http://www.wookietranslator.com" />
 	<meta property="og:description" content="Chewy Translations" />
 	<meta property="og:image" content="http://www.wookietranslator.com/img/wookie.png" />
-	<meta name="viewport" content="width=device-width, user-scalable=no" />		
+	<meta name="viewport" content="width=device-width, user-scalable=no" />
 	<link rel="image_src" type="image/png" src="/img/chew-btn.png">
 <!-- CSS -->
 	<link href='http://fonts.googleapis.com/css?family=Amatic+SC:700' rel='stylesheet' type='text/css'>
@@ -19,13 +19,13 @@
 	<link href="/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
 	<link href="/css/wookie.css" rel="stylesheet" media="screen">
 <!-- Load jquery -->
-	<script src="http://code.jquery.com/jquery-latest.js"></script>	
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
 
 </head>
 <body>
-	<a onClick="analytics.track('Click', {category: 'wookington header',label: 'stay up to date'});" class="wookington-header" id="wookington" href="https://instagram.com/wookingtonchew" target="_blank">
+	<!-- <a onClick="analytics.track('Click', {category: 'wookington header',label: 'stay up to date'});" class="wookington-header" id="wookington" href="https://instagram.com/wookingtonchew" target="_blank">
 		<h4><span>WOOKINGTON CHEW</span> Stay up to date on latest wookie news</h4>
-	</a>
+	</a> -->
 
 	<div class='container'>
 		<div class='wrapper-header'>
@@ -41,14 +41,14 @@
 		<div class='wrapper-share'>
 		  {% block share %}{% endblock %}
 		</div>
-		
+
 	</div>
 
 </body>
 <footer>
 
 
-<!-- Load Bootstrap -->	
+<!-- Load Bootstrap -->
 <script src="/js/bootstrap.min.js"></script>
 <!-- Load Images -->
 <script type="text/javascript">
@@ -70,10 +70,9 @@
 analytics.load("{{ key }}");
 
 analytics.page()
-}}(); 
+}}();
 
 
 </script>
 </footer>
 </html>
-
