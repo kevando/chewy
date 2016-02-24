@@ -100,9 +100,17 @@ class ListAllTranslations(webapp2.RequestHandler):
 		
 # ---------------------------------------------------------------------
 
+class NotFoundPageHandler(webapp2.RequestHandler):
+	def get(self):
+		self.error(404)
+		path = os.path.join(os.path.dirname(__file__), '404.html')
+		self.response.out.write(template.render(path, {}))
+# ---------------------------------------------------------------------
+
 app = webapp2.WSGIApplication([('/translations/(.*)', ListAllTranslations),
 							  ('/uughghhhgh/(.*)', SharePage),
-							  ('/(.*)', MainPage)],
+							  ('/()', MainPage),
+							  ('/.*', NotFoundPageHandler)],
                               debug=False)
 
 # ---------------------------------------------------------------------
