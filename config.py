@@ -1,5 +1,7 @@
 import os
 #-----------------------------------------------------------------
+#Segment Keys
+
 LOCAL_KEY = "V8k774grRkJCZvyKkAxIcaqaO0tnQUmy"
 LIVE_KEY = "testkey"
 
@@ -10,4 +12,9 @@ def getKey():
 		return LIVE_KEY
 
 #-----------------------------------------------------------------
+#BaseURL
 
+BASE_URL = "/"
+
+def getRootURL():
+	return BASE_URL
