@@ -4,7 +4,7 @@
 {% block form %}
   <fieldset>
     <input class="disabled-input" placeholder="{{ placeholder }}" name="phrase" disabled="disabled" class="phrase">
-    <button class="btn btn-medium btn-primary" type="submit" onClick="_gaq.push(['_trackEvent', 'Share Page', 'Translate', 'Translate']);">Translate</button>
+    <button class="btn btn-medium btn-primary" type="submit" onClick="analytics.track('Translate', {category: 'Share Page',label: 'Translate'});">Translate</button>
   </fieldset>
 {% endblock %}
 

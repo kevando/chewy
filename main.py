@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+import config
 import cgi
 import webapp2
 import random
@@ -41,7 +42,7 @@ class Translation(db.Model):
 # Landing function
 class MainPage(webapp2.RequestHandler):
 	def get(self,urlKey):	
-		templateValues = {'placeholder':'Enter Human Language'}
+		templateValues = {'placeholder':'Enter Human Language', 'key':config.getKey(), 'BASE_URL':config.getRootURL()}
 		path = os.path.join(os.path.dirname(__file__), 'main.html')
 		self.response.out.write(template.render(path, templateValues))
 
@@ -49,7 +50,7 @@ class MainPage(webapp2.RequestHandler):
 		userInput = self.request.get('phrase')
 		newUrlKey = translateToWookie(userInput,self.request.remote_addr)
 		translation = Translation.get_by_id(newUrlKey)
-		templateValues = {'placeholder':translation.english,'translation':translation.wookie,'translationId':translation.key().id()}
+		templateValues = {'placeholder':translation.english,'translation':translation.wookie,'translationId':translation.key().id(), 'key':config.getKey(), 'BASE_URL':config.getRootURL()}
 		path = os.path.join(os.path.dirname(__file__), 'translated.html')
 		self.response.out.write(template.render(path, templateValues))
 
@@ -70,9 +71,9 @@ class SharePage(webapp2.RequestHandler):
 			tid = int(urlKey)
 			translation = Translation.get_by_id(tid)
 			if translation != None:
-				templateValues = {'placeholder':translation.wookie,'translation':translation.english}
+				templateValues = {'placeholder':translation.wookie,'translation':translation.english,'key':config.getKey(),'BASE_URL':config.getRootURL()}
 			else:
-				templateValues = {'placeholder':'uhhhughh arrahhrrhhhh','translation':'This isn\'t the page you\'re looking for...'}
+				templateValues = {'placeholder':'uhhhughh arrahhrrhhhh','translation':'This isn\'t the page you\'re looking for...','key':config.getKey(),'BASE_URL':config.getRootURL()}
 		path = os.path.join(os.path.dirname(__file__), 'share.html')
 		self.response.out.write(template.render(path, templateValues))
 
@@ -99,9 +100,18 @@ class ListAllTranslations(webapp2.RequestHandler):
 		
 # ---------------------------------------------------------------------
 
+class NotFoundPageHandler(webapp2.RequestHandler):
+	def get(self):
+		self.error(404)
+		templateValues = {'BASE_URL':config.getRootURL()}
+		path = os.path.join(os.path.dirname(__file__), '404.html')
+		self.response.out.write(template.render(path, templateValues))
+# ---------------------------------------------------------------------
+
 app = webapp2.WSGIApplication([('/translations/(.*)', ListAllTranslations),
 							  ('/uughghhhgh/(.*)', SharePage),
-							  ('/(.*)', MainPage)],
+							  ('/()', MainPage),
+							  ('/.*', NotFoundPageHandler)],
                               debug=False)
 
 # ---------------------------------------------------------------------
