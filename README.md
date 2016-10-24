@@ -1,3 +1,6 @@
+#Deployment
+in terminal type ```gcloud app deploy --project chewtacca -v 10``` to deploy
+
 # How to set up local instance of WookieTranslator.com
 
 1. Go to: https://cloud.google.com/appengine/downloads#Google_App_Engine_SDK_for_Python and then download Google App Engine SDK for your platform
