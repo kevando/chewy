@@ -30,7 +30,7 @@ $('#translate').submit(function() {
 {% block share %}
 <div id='fb-root'></div>
   <script src='http://connect.facebook.net/en_US/all.js'></script>
-  <script> 
+  <script>
     FB.init({appId: "45549182362", status: true, cookie: true});
 
     function postToFeed() {
@@ -40,8 +40,8 @@ $('#translate').submit(function() {
         redirect_uri: 'http://www.wookietranslator.com',
         link: 'http://www.wookietranslator.com/uughghhhgh/{{ translationId }}',
         name: 'Wookie Translator',
-        caption: 'Chewy Translations',
-  		picture: 'http://wookietranslator.com/img/fb-icon75-75.png',
+        caption: 'Check out this neat tool that lets me talk with Wookies.',
+  		    picture: 'http://www.wookietranslator.com/img/og.png',
         description: 'uuughh hnnnhrrhhh awwgggghhh wrrhwrwwhw!'
       };
 
@@ -58,18 +58,76 @@ $('#translate').submit(function() {
 	    document.getElementById(id).select();
 	}
 
-  
+
   </script>
 
+<style>
+.public-btn {
+  border: solid 1px black;
+    background-repeat: no-repeat;
+    color: white;
+    text-decoration: none;
+    background-color: white;
+    padding: 8px 17px;
+    font: 100 13px system-ui;
+    background-color: #2E933C;
+    border-radius: 3px;
+    }
+  </style>
 <p>
-	<span class='share-text'>Share <b><i>this</i></b> translation on </span> 
+	<span class='share-text'>Share <b><i>this</i></b> translation on </span>
 	<a href="#" class='fb-button' onclick="analytics.track('Share', {category: 'Translated Page',label: 'Facebook'}); postToFeed(); return false;">
-		Facebook 
-	</a>or 
+		Facebook
+	</a>or
 	<a class="tw-button twitter popup" onClick="analytics.track('Share', {category: 'Translated Page',label: 'Twitter'});" href="http://twitter.com/share?url=http://www.wookietranslator.com/uughghhhgh/{{ translationId }}" target="_blank" rel="nofollow">
 		Twitter
 	</a>
 </p>
+
+<p>
+  <a class="twitter-share-button"
+    onClick="analytics.track('Share', {category: 'Translated Page',label: 'Twitter'});"
+    href="https://twitter.com/intent/tweet?text=Hello%20world&url=http://www.wookietranslator.com/uughghhhgh/{{ translationId }}"
+    data-size="large">
+  Tweet</a>
+  <div class="fb-share-button" data-href="http://www.wookietranslator.com/uughghhhgh/{{ translationId }}" data-layout="button" data-size="large" data-mobile-iframe="true"><a onclick="analytics.track('Share', {category: 'Translated Page',label: 'Facebook'});" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.wookietranslator.com%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+</p>
+
+<p style="margin-top:40px;">
+<a class="public-btn" href="javascript:void(0);" onclick="analytics.track('Make my translations public', {category: 'Translated Page Page',label: 'testing waters'});alert('Thank you. We are going to experiment with this and see how it goes. Check back soon!')">Make my translations public</a>
+</p>
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0&appId=45549182362&autoLogAppEvents=1';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));</script>
+
+
+
 
 <script type="text/javascript">
  $('.popup').click(function(event) {
@@ -92,7 +150,3 @@ $('#translate').submit(function() {
 
 
 {% endblock %}
-
-
-
-
