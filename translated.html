@@ -25,6 +25,17 @@ $('#translate').submit(function() {
  <p><strong>Wookie Translation:</strong> {{ translation }} </p>
 {% endblock %}
 
+{% block banner %}
+  <a id="BannerAd" href="https://twitter.com/Wookingtonchew" target="_blank" onClick="analytics.track('Banner Clicked', {category: 'Translated Page',label: 'Skinny V1'});"><img style="margin-top: 20px;" src="/img/chewy_banner_ad2.jpg" width="600" /></a>
+  <!-- Only show banner for 40% of traffic -->
+  <script>
+  var rando = Math.floor(Math.random() * 10);
+  alert(rando)
+  if(rando < 6) {
+    $('#BannerAd').hide();
+  }
+  </script>
+{% endblock %}
 
 
 {% block share %}
@@ -75,25 +86,20 @@ $('#translate').submit(function() {
     }
   </style>
 <p>
-	<span class='share-text'>Share <b><i>this</i></b> translation on </span>
-	<a href="#" class='fb-button' onclick="analytics.track('Share', {category: 'Translated Page',label: 'Facebook'}); postToFeed(); return false;">
-		Facebook
-	</a>or
-	<a class="tw-button twitter popup" onClick="analytics.track('Share', {category: 'Translated Page',label: 'Twitter'});" href="http://twitter.com/share?url=http://www.wookietranslator.com/uughghhhgh/{{ translationId }}" target="_blank" rel="nofollow">
-		Twitter
-	</a>
+	<span class='share-text'>Share <b><i>your</i></b> translation!</span>
+
 </p>
 
 <p>
   <a class="twitter-share-button"
     onClick="analytics.track('Share', {category: 'Translated Page',label: 'Twitter'});"
-    href="https://twitter.com/intent/tweet?text=Hello%20world&url=http://www.wookietranslator.com/uughghhhgh/{{ translationId }}"
+    href="https://twitter.com/intent/tweet?text=Check%20out%20what%20I%20just%20discovered&url=http://www.wookietranslator.com/uughghhhgh/{{ translationId }}"
     data-size="large">
   Tweet</a>
   <div class="fb-share-button" data-href="http://www.wookietranslator.com/uughghhhgh/{{ translationId }}" data-layout="button" data-size="large" data-mobile-iframe="true"><a onclick="analytics.track('Share', {category: 'Translated Page',label: 'Facebook'});" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.wookietranslator.com%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
 </p>
 
-<p style="margin-top:40px;">
+<p style="margin-top:30px;">
 <a class="public-btn" href="javascript:void(0);" onclick="analytics.track('Make my translations public', {category: 'Translated Page Page',label: 'testing waters'});alert('Thank you. We are going to experiment with this and see how it goes. Check back soon!')">Make my translations public</a>
 </p>
 
