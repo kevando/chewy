@@ -4,7 +4,7 @@
   <form method="post" id="translate">
 	<fieldset>
       <input placeholder="{{ placeholder }}" name="phrase" class='phrase'>
-      <button class="chew-btn chew-btn-active" type="submit" onclick="analytics.track('Click Translate button', {category: 'Main Page',label: 'nth page'});"></button>
+      <button class="chew-btn chew-btn-active" type="submit" onclick="onTranslateSubmit();"></button>
     </fieldset>
   </form>
 
@@ -16,6 +16,14 @@ $('#translate').submit(function() {
     return false;
   }
 });
+
+
+function onTranslateSubmit() {
+  analytics.track('Click Translate button', {category: 'Main Page',label: 'nth page', value: {{ totalTranslations }} }); // probly want to phase this out
+  analytics.track('Click', {category: 'Translate', label: 'Total Translations: ' + {{ totalTranslations }} });
+  // analytics.track('Click', {label: 'Translate', category: 'Total Translations: ' + {{ totalTranslations }} });
+  // console.log( 'Total Translations: ' + {{ totalTranslations }})
+}
 
 </script>
 {% endblock %}
@@ -50,7 +58,7 @@ $('#translate').submit(function() {
       // Track user intent to share
       console.log('postToFeed');
       analytics.track('Share', {category: 'Translated Page',label: 'Facebook'});
-      analytics.track('Click', {category: 'Social',label: 'Facebook Share Button'});
+      analytics.track('Click', {category: 'Social',label: 'Facebook Share Button', value: {{ totalTranslations }} });
 
       // calling the API ...
       var obj = {
@@ -95,6 +103,7 @@ $('#translate').submit(function() {
 <p>
 	<span class='share-text'>Share <b><i>your</i></b> translation!</span>
 </p>
+<!-- <p>dude:: {{ totalTranslations }}: duuude</p> -->
 
 <p>
   <a class="twitter-share-button"
@@ -133,7 +142,8 @@ $('#translate').submit(function() {
   function clickEventToAnalytics (intentEvent) {
     if (!intentEvent) return;
     var label = intentEvent.region;
-    analytics.track('Share', {category: 'Translated Page',label: 'Twitter'})
+    analytics.track('Share', {category: 'Translated Page',label: 'Twitter'});
+    analytics.track('Click', {category: 'Social',label: 'Twitter Share Button', value: {{ totalTranslations }} }); // new format
   }
 
   // Wait for the asynchronous resources to load
