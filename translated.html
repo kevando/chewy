@@ -37,7 +37,8 @@ function onTranslateSubmit() {
   <a id="BannerAd" href="https://twitter.com/Wookingtonchew" target="_blank" onClick="analytics.track('Banner Clicked', {category: 'Translated Page',label: 'Skinny V1'});"><img style="margin-top: 20px;" src="/img/chewy_banner_ad2.jpg" width="600" /></a>
   <!-- Only show banner for 40% of traffic -->
   <script>
-  var rando = Math.floor(Math.random() * 10);
+  // var rando = Math.floor(Math.random() * 10);
+  var rando = 0; // Forcing banner to not show until I figure out what people think about public translations
   if(rando < 6) {
     $('#BannerAd').hide();
   }
@@ -78,6 +79,7 @@ function onTranslateSubmit() {
           analytics.track('API Response', {category: 'Social',label: 'Facebook Share Cancelled'});
         } else {
           analytics.track('API Response', {category: 'Social',label: 'Facebook Share Success'});
+          analytics.track('Shared', {category: 'Facebook',label: '{{ translationId }}'});
           console.log('user probly posted to fb')
         }
         // document.getElementById('msg').innerHTML = "Post ID: " + response['post_id'];
@@ -143,6 +145,7 @@ function onTranslateSubmit() {
     if (!intentEvent) return;
     var label = intentEvent.region;
     analytics.track('Share', {category: 'Translated Page',label: 'Twitter'});
+    analytics.track('Shared', {category: 'Twitter',label: '{{ translationId }}'});
     analytics.track('Click', {category: 'Social',label: 'Twitter Share Button', value: {{ totalTranslations }} }); // new format
   }
 
