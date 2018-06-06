@@ -4,7 +4,7 @@
   <form method="post" id="translate">
 	<fieldset>
       <input placeholder="{{ placeholder }}" name="phrase" class='phrase'>
-      <button class="chew-btn chew-btn-active" type="submit" onclick="analytics.track('Click Translate button', {category: 'Main Page',label: 'nth page'});"></button>
+      <button class="chew-btn chew-btn-active" type="submit" onclick="onTranslateSubmit();"></button>
     </fieldset>
   </form>
 
@@ -17,6 +17,14 @@ $('#translate').submit(function() {
   }
 });
 
+
+function onTranslateSubmit() {
+  analytics.track('Click Translate button', {category: 'Main Page',label: 'nth page', value: {{ totalTranslations }} }); // probly want to phase this out
+  analytics.track('Click', {category: 'Translate', label: 'Total Translations: ' + {{ totalTranslations }} });
+  // analytics.track('Click', {label: 'Translate', category: 'Total Translations: ' + {{ totalTranslations }} });
+  // console.log( 'Total Translations: ' + {{ totalTranslations }})
+}
+
 </script>
 {% endblock %}
 
@@ -25,74 +33,130 @@ $('#translate').submit(function() {
  <p><strong>Wookie Translation:</strong> {{ translation }} </p>
 {% endblock %}
 
+{% block banner %}
+  <a id="BannerAd" href="https://twitter.com/Wookingtonchew" target="_blank" onClick="analytics.track('Banner Clicked', {category: 'Translated Page',label: 'Skinny V1'});"><img style="margin-top: 20px;" src="/img/chewy_banner_ad2.jpg" width="600" /></a>
+  <!-- Only show banner for 40% of traffic -->
+  <script>
+  // var rando = Math.floor(Math.random() * 10);
+  var rando = 0; // Forcing banner to not show until I figure out what people think about public translations
+  if(rando < 6) {
+    $('#BannerAd').hide();
+  }
+  </script>
+{% endblock %}
 
 
 {% block share %}
-<div id='fb-root'></div>
+
   <script src='http://connect.facebook.net/en_US/all.js'></script>
-  <script> 
+  <script>
+
+    // Initializing FB SDK opens up lots of possibilities
     FB.init({appId: "45549182362", status: true, cookie: true});
 
     function postToFeed() {
+
+      // Track user intent to share
+      console.log('postToFeed');
+      analytics.track('Share', {category: 'Translated Page',label: 'Facebook'});
+      analytics.track('Click', {category: 'Social',label: 'Facebook Share Button', value: {{ totalTranslations }} });
+
       // calling the API ...
       var obj = {
         method: 'feed',
         redirect_uri: 'http://www.wookietranslator.com',
         link: 'http://www.wookietranslator.com/uughghhhgh/{{ translationId }}',
-        name: 'Wookie Translator',
-        caption: 'Chewy Translations',
-  		picture: 'http://wookietranslator.com/img/fb-icon75-75.png',
-        description: 'uuughh hnnnhrrhhh awwgggghhh wrrhwrwwhw!'
+        name: 'uughghhhgh',
+        caption: 'uughgggghh',
+  		  picture: 'http://www.wookietranslator.com/img/og.png',
+        description: 'uughghhhgh uughghhhgh Wadu Hek'
       };
 
       function callback(response) {
-        document.getElementById('msg').innerHTML = "Post ID: " + response['post_id'];
-//		alert('kev');
+        console.log('callback',response)
+        if(!response) {
+          console.log('user probly cancelled posting to fb')
+          analytics.track('API Response', {category: 'Social',label: 'Facebook Share Cancelled'});
+        } else {
+          analytics.track('API Response', {category: 'Social',label: 'Facebook Share Success'});
+          analytics.track('Shared', {category: 'Facebook',label: '{{ translationId }}'});
+          console.log('user probly posted to fb')
+        }
+        // document.getElementById('msg').innerHTML = "Post ID: " + response['post_id'];
       }
-
       FB.ui(obj, callback);
     }
 
-	function SelectAll(id){
-	    document.getElementById(id).focus();
-	    document.getElementById(id).select();
-	}
-
-  
   </script>
 
+<style>
+.public-btn {
+  border: solid 1px black;
+    background-repeat: no-repeat;
+    color: white;
+    text-decoration: none;
+    background-color: white;
+    padding: 8px 17px;
+    font: 100 13px system-ui;
+    background-color: #2E933C;
+    border-radius: 3px;
+    }
+  </style>
 <p>
-	<span class='share-text'>Share <b><i>this</i></b> translation on </span> 
-	<a href="#" class='fb-button' onclick="analytics.track('Share', {category: 'Translated Page',label: 'Facebook'}); postToFeed(); return false;">
-		Facebook 
-	</a>or 
-	<a class="tw-button twitter popup" onClick="analytics.track('Share', {category: 'Translated Page',label: 'Twitter'});" href="http://twitter.com/share?url=http://www.wookietranslator.com/uughghhhgh/{{ translationId }}" target="_blank" rel="nofollow">
-		Twitter
-	</a>
+	<span class='share-text'>Share <b><i>your</i></b> translation!</span>
+</p>
+<!-- <p>dude:: {{ totalTranslations }}: duuude</p> -->
+
+<p>
+  <a class="twitter-share-button"
+    href="https://twitter.com/intent/tweet?text=Check%20out%20what%20I%20just%20discovered&url=http://www.wookietranslator.com/uughghhhgh/{{ translationId }}"
+    data-size="large">
+  Tweet</a>
+  <a href="javascript:void(0);" onClick="postToFeed();"><img src="/img/fb_share.png" style="margin-left:30px;"/></a>
 </p>
 
-<script type="text/javascript">
- $('.popup').click(function(event) {
-    var width  = 575,
-        height = 400,
-        left   = ($(window).width()  - width)  / 2,
-        top    = ($(window).height() - height) / 2,
-        url    = this.href,
-        opts   = 'status=1' +
-                 ',width='  + width  +
-                 ',height=' + height +
-                 ',top='    + top    +
-                 ',left='   + left;
+<p style="margin-top:30px;">
+<a class="public-btn" href="javascript:void(0);" onclick="analytics.track('Make my translations public', {category: 'Translated Page Page',label: 'testing waters'});alert('Thank you. We are going to experiment with this and see how it goes. Check back soon!')">Make my translations public</a>
+</p>
 
-    window.open(url, 'twitte', opts);
+  <script type="text/javascript">
 
-    return false;
-  });</script>
+    // TWITTER API
+
+    window.twttr = (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0],
+      t = window.twttr || {};
+    if (d.getElementById(id)) return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://platform.twitter.com/widgets.js";
+    fjs.parentNode.insertBefore(js, fjs);
+
+    t._e = [];
+    t.ready = function(f) {
+      t._e.push(f);
+    };
+
+    return t;
+  }(document, "script", "twitter-wjs"));
+
+
+  function clickEventToAnalytics (intentEvent) {
+    if (!intentEvent) return;
+    var label = intentEvent.region;
+    analytics.track('Share', {category: 'Translated Page',label: 'Twitter'});
+    analytics.track('Shared', {category: 'Twitter',label: '{{ translationId }}'});
+    analytics.track('Click', {category: 'Social',label: 'Twitter Share Button', value: {{ totalTranslations }} }); // new format
+  }
+
+  // Wait for the asynchronous resources to load
+  // Then track any click event to the share button
+  twttr.ready(function (twttr) {
+    twttr.events.bind('click', clickEventToAnalytics);
+  });
+
+</script>
 
 
 
 {% endblock %}
-
-
-
-

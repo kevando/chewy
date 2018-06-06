@@ -25,8 +25,8 @@ import urllib
 from google.appengine.ext import db
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
-
-
+from webapp2_extras import sessions
+import logging
 
 # Define Model
 class Translation(db.Model):
@@ -39,32 +39,67 @@ class Translation(db.Model):
 
 # ---------------------------------------------------------------------
 
+
+class BaseHandler(webapp2.RequestHandler):
+
+    # It works!
+
+    def dispatch(self):
+        # logging.info('infooooooooooo!')
+
+        # Get a session store for this request.
+        self.session_store = sessions.get_store(request=self.request)
+
+        try:
+            # Dispatch the request.
+            webapp2.RequestHandler.dispatch(self)
+        finally:
+            # Save all sessions.
+            self.session_store.save_sessions(self.response)
+
+    @webapp2.cached_property
+    def session(self):
+        # Returns a session using the default cookie key.
+        return self.session_store.get_session()
+
+# ---------------------------------------------------------------------
+
 # Landing function
-class MainPage(webapp2.RequestHandler):
-	def get(self,urlKey):	
+class MainPage(BaseHandler):
+
+
+	def get(self,urlKey):
 		templateValues = {'placeholder':'Enter Human Language', 'key':config.getKey(), 'BASE_URL':config.getRootURL()}
 		path = os.path.join(os.path.dirname(__file__), 'main.html')
 		self.response.out.write(template.render(path, templateValues))
 
 	def post(self,urlKey):
 		userInput = self.request.get('phrase')
-		newUrlKey = translateToWookie(userInput,self.request.remote_addr)
+		newUrlKey = translateToWookie(userInput,self.request.remote_addr,self)
 		translation = Translation.get_by_id(newUrlKey)
-		templateValues = {'placeholder':translation.english,'translation':translation.wookie,'translationId':translation.key().id(), 'key':config.getKey(), 'BASE_URL':config.getRootURL()}
+
+		templateValues = {
+            'totalTranslations': getTotalTranslations(self),
+            'placeholder':translation.english,
+            'translation':translation.wookie,
+            'translationId':translation.key().id(),
+            'key':config.getKey(),
+            'BASE_URL':config.getRootURL()
+        }
 		path = os.path.join(os.path.dirname(__file__), 'translated.html')
 		self.response.out.write(template.render(path, templateValues))
 
 # ---------------------------------------------------------------------
 
 # Share function
-class SharePage(webapp2.RequestHandler):
+class SharePage(BaseHandler):
 
-	def get(self,urlKey):	
+	def get(self,urlKey):
 		try:
 		    urlKey
 		except NameError:
 		    urlKey = ''
-		
+
 		if(urlKey==''):
 			self.redirect('/')
 		if(urlKey!=''):
@@ -78,8 +113,8 @@ class SharePage(webapp2.RequestHandler):
 		self.response.out.write(template.render(path, templateValues))
 
 # ---------------------------------------------------------------------
-		
-class ListAllTranslations(webapp2.RequestHandler):
+
+class ListAllTranslations(BaseHandler):
 	def get(self,order):
 		self.response.out.write("<style>td{border:solid 1px #B9B9B9;background:#E0E0E0;font-family:courier;font-size:12px;padding:2px;}</style>")
 		self.response.out.write("<table><tr><td width='30'>ID</td><td width='200'>ENGLISH</td><td width='650'>WOOKIE</td><td width='200'>Date</td><td>IP</td></tr></strong>")
@@ -95,12 +130,12 @@ class ListAllTranslations(webapp2.RequestHandler):
 			self.response.out.write('<td>'+str(translated.date)+'</td>')
 			self.response.out.write('<td>'+str(translated.ip_address)+'</td>')
 			self.response.out.write('</tr>')
-		#	translated.delete()	
+		#	translated.delete()
 		self.response.out.write('</table>')
-		
+
 # ---------------------------------------------------------------------
 
-class NotFoundPageHandler(webapp2.RequestHandler):
+class NotFoundPageHandler(BaseHandler):
 	def get(self):
 		self.error(404)
 		templateValues = {'BASE_URL':config.getRootURL()}
@@ -108,37 +143,83 @@ class NotFoundPageHandler(webapp2.RequestHandler):
 		self.response.out.write(template.render(path, templateValues))
 # ---------------------------------------------------------------------
 
+
+sessionConfig = {}
+sessionConfig['webapp2_extras.sessions'] = {
+    'secret_key': 'my-super-secret-key',
+}
+# ---------------------------------------------------------------------
+
 app = webapp2.WSGIApplication([('/translations/(.*)', ListAllTranslations),
 							  ('/uughghhhgh/(.*)', SharePage),
 							  ('/()', MainPage),
 							  ('/.*', NotFoundPageHandler)],
-                              debug=False)
+                              debug=False,
+                              config=sessionConfig
+                              )
 
 # ---------------------------------------------------------------------
 
-def translateToWookie(englishWord,ip):
+
+def getTotalTranslations(self):
+
+	totalTranslations = self.session.get('total_translations')
+
+	# logging.info('getTotalTranslations')
+	# logging.info(totalTranslations)
+
+	if(totalTranslations):
+		logging.info('we have a total!')
+	else:
+		# logging.info('we dont have a total. need to init')
+		self.session['total_translations'] = 0
+
+	return totalTranslations
+
+def incrementTotalTranslations(self):
+
+	totalTranslations = self.session.get('total_translations')
+
+	# logging.info('incrementTotalTranslations')
+	# logging.info(totalTranslations)
+
+	if(totalTranslations):
+		# logging.info('we have a total! inc')
+		totalTranslations += 1
+		# logging.info('incrementTotalTranslations')
+		# logging.info(totalTranslations)
+		self.session['total_translations'] = totalTranslations
+	else:
+		# logging.info('we dont have a total. soome ting wrong')
+		totalTranslations = 1
+		# logging.info('incrementTotalTranslations')
+		# logging.info(totalTranslations)
+        self.session['total_translations'] = totalTranslations
+
+
+def translateToWookie(englishWord,ip,self):
 	wookieLanguage = [	'huurh',
 						'uughghhhgh',
 						'uugggh',
 						'raaaaaahhgh',
-						'hnnnhrrhhh', 
+						'hnnnhrrhhh',
 						'huuguughghg',
 						'aarrragghuuhw',
 						'aaahnruh',
 						'huurh','uughghhhgh',
 						'uggguh','raaaaaahhgh',
-						'uughguughhhghghghhhgh', 
+						'uughguughhhghghghhhgh',
 						'huuguughghg','aarrragghuuhw',
 						'aaaaahnr','huurh','uughghhhgh',
-						'uuh','raaaaaahhgh','uughguughhhghghghhhgh', 
+						'uuh','raaaaaahhgh','uughguughhhghghghhhgh',
 						'huuguughghg','aarrragghuuhw',
 						'aaaaahnr','huurh','uughghhhgh',
 						'wuuh','raaaaaahhgh',
-						'uughguughhhghghghhhgh', 
+						'uughguughhhghghghhhgh',
 						'huuguughghg','aarrragghuuhw',
 						'awwgggghhh','huurh','wrrhwrwwhw',
 						'wrrhw','raaaaaahhgh',
-						'uughguughhhghghghhhgh', 
+						'uughguughhhghghghhhgh',
 						'huuguughghg','aguhwwgggghhh',
 						'aaaaahnr']
 	random.shuffle(wookieLanguage)
@@ -153,11 +234,11 @@ def translateToWookie(englishWord,ip):
 
 	if(englishWord in wookieLanguage):
 		translation = 'i am wookie, hear me roar!'
-	
+
 	if(englishWord == 'A simple tool that helps you talk with Chewy.' or englishWord == 'A simple tool that helps you talk with Chewy'):
 		translation = 'aarrragghuuhw aarrragghuuhw raaaaaahhgh'
 
-		
+
 	if(englishWord.find('uughghhhgh') != -1 or
 	englishWord.find('raaaaaahhgh') != -1 or
 	englishWord.find('huuguughghg') != -1 or
@@ -182,16 +263,14 @@ def translateToWookie(englishWord,ip):
 	englishWord.find('huuguughghg') != -1 or
 	englishWord.find('raaaaaahhgh') != -1 or
 	englishWord.find('awwgggghhh') != -1):
-		translation = '** Invalid Input! Language Recognized as Wookie**'	
-		
-					
+		translation = '** Invalid Input! Language Recognized as Wookie**'
+
+
 
 	newTranslation = Translation(english = englishWord, wookie = translation, ip_address = ip)
 	newTranslation.put()
 	newCorrectUrlKey = int(newTranslation.key().id())
-	
+
+	incrementTotalTranslations(self)
+
 	return newCorrectUrlKey
-
-
-
-
