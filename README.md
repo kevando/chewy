@@ -20,3 +20,16 @@
 ### Deployment
 in terminal type ```gcloud app deploy --project chewtacca -v 10``` to deploy
 We are limited to 15 versions. It's also very easy to deploy it without a live segment key, which would break tracking
+
+
+### Analytics
+
+funnel tracking
+path: '/',
+path: '/funnel/typing',
+path: '/funnel/clicked',
+path: '/funnel/translated/1',
+
+path: '/funnel/translation/share',
+
+path: '/funnel/translation/share/social',
