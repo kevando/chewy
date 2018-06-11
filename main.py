@@ -27,6 +27,10 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 from webapp2_extras import sessions
 import logging
+from google.appengine.api import urlfetch
+import urllib
+
+
 
 # Define Model
 class Translation(db.Model):
@@ -36,6 +40,7 @@ class Translation(db.Model):
     touched = db.IntegerProperty()
     date = db.DateTimeProperty(auto_now_add=True)
     ip_address = db.StringProperty(multiline=False)
+    public = db.BooleanProperty(default=False)
 
 # ---------------------------------------------------------------------
 
@@ -69,6 +74,9 @@ class MainPage(BaseHandler):
 
 
 	def get(self,urlKey):
+
+
+
 		templateValues = {'placeholder':'Enter Human Language', 'key':config.getKey(), 'BASE_URL':config.getRootURL()}
 		path = os.path.join(os.path.dirname(__file__), 'main.html')
 		self.response.out.write(template.render(path, templateValues))
@@ -78,6 +86,7 @@ class MainPage(BaseHandler):
 		newUrlKey = translateToWookie(userInput,self.request.remote_addr,self)
 		translation = Translation.get_by_id(newUrlKey)
 
+
 		templateValues = {
             'totalTranslations': getTotalTranslations(self),
             'placeholder':translation.english,
@@ -86,6 +95,8 @@ class MainPage(BaseHandler):
             'key':config.getKey(),
             'BASE_URL':config.getRootURL()
         }
+
+		pushTranslationToZapier(templateValues)
 		path = os.path.join(os.path.dirname(__file__), 'translated.html')
 		self.response.out.write(template.render(path, templateValues))
 
@@ -195,6 +206,20 @@ def incrementTotalTranslations(self):
 		# logging.info('incrementTotalTranslations')
 		# logging.info(totalTranslations)
         self.session['total_translations'] = totalTranslations
+
+def pushTranslationToZapier(templateValues):
+    logging.info("WTF")
+    try:
+        payload = urllib.urlencode(templateValues)
+        headers = {}
+        result = urlfetch.fetch(
+            url='https://hooks.zapier.com/hooks/catch/1835221/anx2ol/',
+            payload=payload,
+            method=urlfetch.POST,
+            headers=headers)
+        logging.info(result.content)
+    except urlfetch.Error:
+        logging.exception('Caught exception fetching url')
 
 
 def translateToWookie(englishWord,ip,self):
