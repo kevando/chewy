@@ -72,10 +72,7 @@ class BaseHandler(webapp2.RequestHandler):
 # Landing function
 class MainPage(BaseHandler):
 
-
 	def get(self,urlKey):
-
-
 
 		templateValues = {
                 'placeholder':'Enter Human Language',
@@ -102,7 +99,7 @@ class MainPage(BaseHandler):
             'translationsPublic':self.session.get('translations_public')
         }
 
-		# pushTranslationToZapier(templateValues)
+		pushTranslationToZapier(templateValues)
 		path = os.path.join(os.path.dirname(__file__), 'translated.html')
 		self.response.out.write(template.render(path, templateValues))
 
@@ -225,7 +222,7 @@ def incrementTotalTranslations(self):
 
 
 def pushTranslationToZapier(templateValues):
-    logging.info("WTF")
+
     try:
         payload = urllib.urlencode(templateValues)
         headers = {}
