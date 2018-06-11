@@ -12,17 +12,17 @@
 // Validate
 $('#translate').submit(function() {
   if($('.phrase').val() == ''){
-	$('.phrase').addClass('invalid-input')
+	   $('.phrase').addClass('invalid-input');
+     analytics.track('Response', {category: 'Error',label: 'Empty input form on Translation Page'});
     return false;
   }
 });
 
 
 function onTranslateSubmit() {
-  analytics.track('Click Translate button', {category: 'Main Page',label: 'nth page', value: {{ totalTranslations }} }); // probly want to phase this out
+  analytics.track('Click Translate button', {category: 'Main Page',label: 'nth page', value: {{ totalTranslations }} }); // legacy
   analytics.track('Click', {category: 'Translate', label: 'Total Translations: ' + {{ totalTranslations }} });
-  // analytics.track('Click', {label: 'Translate', category: 'Total Translations: ' + {{ totalTranslations }} });
-  // console.log( 'Total Translations: ' + {{ totalTranslations }})
+  analytics.page({title: 'Funnel: Translate',path: '/funnel/translate/{{ totalTranslations }}',});
 }
 
 </script>
@@ -56,10 +56,9 @@ function onTranslateSubmit() {
 
     function postToFeed() {
 
-      // Track user intent to share
-      console.log('postToFeed');
       analytics.track('Share', {category: 'Translated Page',label: 'Facebook'});
       analytics.track('Click', {category: 'Social',label: 'Facebook Share Button', value: {{ totalTranslations }} });
+      analytics.page({title: 'Funnel: Clicked Social',path: '/funnel/social/facebook/clicked'});
 
       // calling the API ...
       var obj = {
@@ -75,14 +74,14 @@ function onTranslateSubmit() {
       function callback(response) {
         console.log('callback',response)
         if(!response) {
-          console.log('user probly cancelled posting to fb')
-          analytics.track('API Response', {category: 'Social',label: 'Facebook Share Cancelled'});
+          // console.log('user probly cancelled posting to fb')
+          analytics.track('Response', {category: 'API',label: 'Facebook Share Cancelled'});
+
         } else {
-          analytics.track('API Response', {category: 'Social',label: 'Facebook Share Success'});
+          analytics.track('Response', {category: 'API',label: 'Facebook Share Success'});
           analytics.track('Shared', {category: 'Facebook',label: '{{ translationId }}'});
-          console.log('user probly posted to fb')
+          analytics.page({title: 'Funnel: Clicked Social',path: '/funnel/social/facebook/shared'});
         }
-        // document.getElementById('msg').innerHTML = "Post ID: " + response['post_id'];
       }
       FB.ui(obj, callback);
     }
@@ -102,12 +101,13 @@ function onTranslateSubmit() {
     border-radius: 3px;
     }
   </style>
-<p>
-	<span class='share-text'>Share <b><i>your</i></b> translation!</span>
-</p>
-<!-- <p>dude:: {{ totalTranslations }}: duuude</p> -->
 
-<p>
+<p style="margin-top:0" class='share-active' >
+<span class='share-text'>Share <b><i>your</i></b> translation!</span>
+</p>
+
+<p class='social-share share-active' >
+
   <a class="twitter-share-button"
     href="https://twitter.com/intent/tweet?text=Check%20out%20what%20I%20just%20discovered&url=http://www.wookietranslator.com/uughghhhgh/{{ translationId }}"
     data-size="large">
@@ -116,10 +116,33 @@ function onTranslateSubmit() {
 </p>
 
 <p style="margin-top:30px;">
-<a class="public-btn" href="javascript:void(0);" onclick="analytics.track('Make my translations public', {category: 'Translated Page Page',label: 'testing waters'});alert('Thank you. We are going to experiment with this and see how it goes. Check back soon!')">Make my translations public</a>
+<a class="public-btn" href="javascript:void(0);" onclick="shareMyTranslation();">Share my translation</a>
 </p>
 
   <script type="text/javascript">
+
+  if("{{ translationsPublic }}" == "True") {
+    $('.share-active').css({opacity: 1.0});
+    $('.public-btn').hide();
+  } else {
+    $('.share-active').css({opacity: 0});
+  }
+
+  function shareMyTranslation() {
+
+    $('.share-active').css({opacity: 1.0});
+    $('.public-btn').fadeOut(100);
+
+    // set session variable
+    var data = {sessionData: {sharedTranslation: true}}
+    $.post("/ss", data, function(data, status){
+        console.log("Data: " + data + "\nStatus: " + status);
+    });
+
+    analytics.track('Click', {category: 'Button',label: 'Share my translation'});
+    analytics.page({title: 'Funnel: Share',path: '/funnel/share'});
+  }
+
 
     // TWITTER API
 
@@ -147,6 +170,7 @@ function onTranslateSubmit() {
     analytics.track('Share', {category: 'Translated Page',label: 'Twitter'});
     analytics.track('Shared', {category: 'Twitter',label: '{{ translationId }}'});
     analytics.track('Click', {category: 'Social',label: 'Twitter Share Button', value: {{ totalTranslations }} }); // new format
+    analytics.page({title: 'Funnel: Clicked Social',path: '/funnel/social/twitter/clicked'});
   }
 
   // Wait for the asynchronous resources to load

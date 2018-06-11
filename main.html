@@ -4,22 +4,40 @@
   <form method="post" id="translate">
     <fieldset>
 	  <input placeholder="{{ placeholder }}" name="phrase" class='phrase'>
-      <button class="chew-btn" type="submit" onclick="analytics.track('Click Translate button', {category: 'Main Page',label: 'Root page'});"></button>
+      <button class="chew-btn" type="submit" ></button>
     </fieldset>
   </form>
 
 <script>
 // Validate
+console.log('total translations: {{ totalTranslations }}')
 $('#translate').submit(function() {
-  if($('.phrase').val() == ''){
-	$('.phrase').addClass('invalid-input')
-    return false;
+  if($('.phrase').val() == '') {
+	   $('.phrase').addClass('invalid-input')
+     analytics.track('Response', {category: 'Error',label: 'Empty input form on Home Page'});
+     return false;
+  } else {
+    // form is all good
+    analytics.track('Submit', {category: 'Form',label: 'Main Page'});
+    analytics.page({title: 'Funnel: Submit',path: '/funnel/submit',});
+
   }
 });
 
+$( ".phrase" ).focusin(function() {
+  console.log('.phrase')
+  analytics.track('Click', {category: 'Input',label: 'Translation Form'});
+  analytics.page({title: 'Funnel: Typing', path: '/funnel/typing',});
+});
+
+$( ".chew-btn" ).click(function() {
+  console.log('.chew-btn')
+  analytics.track('Click', {category: 'Button',label: 'Chewy Icon'});
+  analytics.track('Click Translate button', {category: 'Main Page',label: 'Root page'}); // legacy
+  analytics.page({title: 'Funnel: Translate',path: '/funnel/translate/{{ totalTranslations }}',});
+});
+
+
+
 </script>
 {% endblock %}
-
-
-
-

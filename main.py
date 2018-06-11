@@ -77,7 +77,12 @@ class MainPage(BaseHandler):
 
 
 
-		templateValues = {'placeholder':'Enter Human Language', 'key':config.getKey(), 'BASE_URL':config.getRootURL()}
+		templateValues = {
+                'placeholder':'Enter Human Language',
+                'key':config.getKey(),
+                'BASE_URL':config.getRootURL(),
+                'totalTranslations': getTotalTranslations(self),
+        }
 		path = os.path.join(os.path.dirname(__file__), 'main.html')
 		self.response.out.write(template.render(path, templateValues))
 
@@ -93,12 +98,22 @@ class MainPage(BaseHandler):
             'translation':translation.wookie,
             'translationId':translation.key().id(),
             'key':config.getKey(),
-            'BASE_URL':config.getRootURL()
+            'BASE_URL':config.getRootURL(),
+            'translationsPublic':self.session.get('translations_public')
         }
 
-		pushTranslationToZapier(templateValues)
+		# pushTranslationToZapier(templateValues)
 		path = os.path.join(os.path.dirname(__file__), 'translated.html')
 		self.response.out.write(template.render(path, templateValues))
+
+# handles session
+class SessionHandler(BaseHandler):
+
+    def post(self):
+        # Doesnt actually take in session info. all this fn does is set translations public
+    	self.session['translations_public'] = True
+        self.response.out.write('All Good')
+
 
 # ---------------------------------------------------------------------
 
@@ -164,6 +179,7 @@ sessionConfig['webapp2_extras.sessions'] = {
 app = webapp2.WSGIApplication([('/translations/(.*)', ListAllTranslations),
 							  ('/uughghhhgh/(.*)', SharePage),
 							  ('/()', MainPage),
+                              ('/ss', SessionHandler),
 							  ('/.*', NotFoundPageHandler)],
                               debug=False,
                               config=sessionConfig
@@ -206,6 +222,7 @@ def incrementTotalTranslations(self):
 		# logging.info('incrementTotalTranslations')
 		# logging.info(totalTranslations)
         self.session['total_translations'] = totalTranslations
+
 
 def pushTranslationToZapier(templateValues):
     logging.info("WTF")
