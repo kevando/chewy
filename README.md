@@ -24,12 +24,27 @@ We are limited to 15 versions. It's also very easy to deploy it without a live s
 
 ### Analytics
 
+**Goal:** Optimize for translating at least 1 phrase.
+
+
+```
 funnel tracking
 path: '/',
 path: '/funnel/typing',
 path: '/funnel/clicked',
-path: '/funnel/translated/1',
-
+path: '/funnel/translate/1',
 path: '/funnel/translation/share',
-
 path: '/funnel/translation/share/social',
+```
+
+Segment, Inspectlet
+
+khabich+wookie@gmail.com
+
+### Changelog
+
+####v10
+
+**2018.07.28** Removed share. added public translations to Wookington
+
+**2018.07.29** Inspectlet, added Google Experiments
