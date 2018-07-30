@@ -1,19 +1,22 @@
 {% extends "base.html" %}
 
 {% block form %}
-  <form method="post" id="translate">
-	<fieldset>
-      <input placeholder="{{ placeholder }}" name="phrase" class='phrase'>
-      <button class="chew-btn chew-btn-active" type="submit" onclick="onTranslateSubmit();"></button>
-    </fieldset>
-  </form>
+<form method="post" id="translate">
+  <fieldset>
+    <input placeholder="{{ placeholder }}" name="phrase" class='phrase'>
+    <button class="chew-btn chew-btn-active" type="submit" onclick="onTranslateSubmit();"></button>
+  </fieldset>
+  <p class='translations-public'><input type="checkbox" id="translations_public" {{ translationsPublicCheck }} />Add my translations to the public Wookie News Feed</p>
+</form>
 
 <script>
+
 // Validate
+
 $('#translate').submit(function() {
   if($('.phrase').val() == ''){
-	   $('.phrase').addClass('invalid-input');
-     analytics.track('Response', {category: 'Error',label: 'Empty input form on Translation Page'});
+    $('.phrase').addClass('invalid-input');
+    analytics.track('Response', {category: 'Error',label: 'Empty input form on Translation Page'});
     return false;
   }
 });
@@ -48,61 +51,49 @@ function onTranslateSubmit() {
 
 {% block share %}
 
-  <script src='http://connect.facebook.net/en_US/all.js'></script>
+  <!-- <script src='http://connect.facebook.net/en_US/all.js'></script> -->
   <script>
 
     // Initializing FB SDK opens up lots of possibilities
-    FB.init({appId: "45549182362", status: true, cookie: true});
-
-    function postToFeed() {
-
-      analytics.track('Share', {category: 'Translated Page',label: 'Facebook'});
-      analytics.track('Click', {category: 'Social',label: 'Facebook Share Button', value: {{ totalTranslations }} });
-      analytics.page({title: 'Funnel: Clicked Social',path: '/funnel/social/facebook/clicked'});
-
-      // calling the API ...
-      var obj = {
-        method: 'feed',
-        redirect_uri: 'http://www.wookietranslator.com',
-        link: 'http://www.wookietranslator.com/uughghhhgh/{{ translationId }}',
-        name: 'uughghhhgh',
-        caption: 'uughgggghh',
-  		  picture: 'http://www.wookietranslator.com/img/og.png',
-        description: 'uughghhhgh uughghhhgh Wadu Hek'
-      };
-
-      function callback(response) {
-        console.log('callback',response)
-        if(!response) {
-          // console.log('user probly cancelled posting to fb')
-          analytics.track('Response', {category: 'API',label: 'Facebook Share Cancelled'});
-
-        } else {
-          analytics.track('Response', {category: 'API',label: 'Facebook Share Success'});
-          analytics.track('Shared', {category: 'Facebook',label: '{{ translationId }}'});
-          analytics.page({title: 'Funnel: Clicked Social',path: '/funnel/social/facebook/shared'});
-        }
-      }
-      FB.ui(obj, callback);
-    }
+    // FB.init({appId: "45549182362", status: true, cookie: true});
+    //
+    // function postToFeed() {
+    //
+    //   analytics.track('Share', {category: 'Translated Page',label: 'Facebook'});
+    //   analytics.track('Click', {category: 'Social',label: 'Facebook Share Button', value: {{ totalTranslations }} });
+    //   analytics.page({title: 'Funnel: Clicked Social',path: '/funnel/social/facebook/clicked'});
+    //
+    //   // calling the API ...
+    //   var obj = {
+    //     method: 'feed',
+    //     redirect_uri: 'http://www.wookietranslator.com',
+    //     link: 'http://www.wookietranslator.com/uughghhhgh/{{ translationId }}',
+    //     name: 'uughghhhgh',
+    //     caption: 'uughgggghh',
+  	// 	  picture: 'http://www.wookietranslator.com/img/og.png',
+    //     description: 'uughghhhgh uughghhhgh Wadu Hek'
+    //   };
+    //
+    //   function callback(response) {
+    //     console.log('callback',response)
+    //     if(!response) {
+    //       // console.log('user probly cancelled posting to fb')
+    //       analytics.track('Response', {category: 'API',label: 'Facebook Share Cancelled'});
+    //
+    //     } else {
+    //       analytics.track('Response', {category: 'API',label: 'Facebook Share Success'});
+    //       analytics.track('Shared', {category: 'Facebook',label: '{{ translationId }}'});
+    //       analytics.page({title: 'Funnel: Clicked Social',path: '/funnel/social/facebook/shared'});
+    //     }
+    //   }
+    //   FB.ui(obj, callback);
+    // }
 
   </script>
 
-<style>
-.public-btn {
-  border: solid 1px black;
-    background-repeat: no-repeat;
-    color: white;
-    text-decoration: none;
-    background-color: white;
-    padding: 8px 17px;
-    font: 100 13px system-ui;
-    background-color: #2E933C;
-    border-radius: 3px;
-    }
-  </style>
 
-<p style="margin-top:0" class='share-active' >
+
+<!-- <p style="margin-top:0" class='share-active' >
 <span class='share-text'>Share <b><i>your</i></b> translation!</span>
 </p>
 
@@ -117,67 +108,94 @@ function onTranslateSubmit() {
 
 <p style="margin-top:30px;">
 <a class="public-btn" href="javascript:void(0);" onclick="shareMyTranslation();">Share my translation</a>
-</p>
+</p> -->
 
   <script type="text/javascript">
 
-  if("{{ translationsPublic }}" == "True") {
-    $('.share-active').css({opacity: 1.0});
-    $('.public-btn').hide();
-  } else {
-    $('.share-active').css({opacity: 0});
-  }
+  $('#translations_public').click(function() {
+    var isChecked = $(this).is(':checked')
+    // console.warn('clicked', isChecked)
+    makeTranslationsPublic(isChecked)
+  })
 
-  function shareMyTranslation() {
+  function makeTranslationsPublic(isChecked) {
 
-    $('.share-active').css({opacity: 1.0});
-    $('.public-btn').fadeOut(100);
+    var data = {translations_public: isChecked}
 
-    // set session variable
-    var data = {sessionData: {sharedTranslation: true}}
-    $.post("/ss", data, function(data, status){
-        console.log("Data: " + data + "\nStatus: " + status);
+    $.ajax({
+      type: "POST",
+      url: "/ss",
+      dataType: 'json',
+      data: JSON.stringify(data)
+    })
+    .done(function( data, status ) { // check why I use done
+      console.log("Data: " + data + "\nStatus: " + status);
     });
 
-    analytics.track('Click', {category: 'Button',label: 'Share my translation'});
-    analytics.page({title: 'Funnel: Share',path: '/funnel/share'});
+
+    // analytics.track('Click', {category: 'Button',label: 'Make my translations public'});
+    // analytics.page({title: 'Funnel: Share',path: '/funnel/share'});
+  }
+
+
+
+  // if("{{ translationsPublic }}" == "True") {
+  //   $('.share-active').css({opacity: 1.0});
+  //   $('.public-btn').hide();
+  // } else {
+  //   $('.share-active').css({opacity: 0});
+  // }
+
+  function shareMyTranslation() {
+    //
+    // $('.share-active').css({opacity: 1.0});
+    // $('.public-btn').fadeOut(100);
+    //
+    // // set session variable
+    // var data = {sessionData: {sharedTranslation: true}}
+    // $.post("/ss", data, function(data, status){
+    //     console.log("Data: " + data + "\nStatus: " + status);
+    // });
+    //
+    // analytics.track('Click', {category: 'Button',label: 'Share my translation'});
+    // analytics.page({title: 'Funnel: Share',path: '/funnel/share'});
   }
 
 
     // TWITTER API
 
-    window.twttr = (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0],
-      t = window.twttr || {};
-    if (d.getElementById(id)) return t;
-    js = d.createElement(s);
-    js.id = id;
-    js.src = "https://platform.twitter.com/widgets.js";
-    fjs.parentNode.insertBefore(js, fjs);
-
-    t._e = [];
-    t.ready = function(f) {
-      t._e.push(f);
-    };
-
-    return t;
-  }(document, "script", "twitter-wjs"));
-
-
-  function clickEventToAnalytics (intentEvent) {
-    if (!intentEvent) return;
-    var label = intentEvent.region;
-    analytics.track('Share', {category: 'Translated Page',label: 'Twitter'});
-    analytics.track('Shared', {category: 'Twitter',label: '{{ translationId }}'});
-    analytics.track('Click', {category: 'Social',label: 'Twitter Share Button', value: {{ totalTranslations }} }); // new format
-    analytics.page({title: 'Funnel: Clicked Social',path: '/funnel/social/twitter/clicked'});
-  }
-
-  // Wait for the asynchronous resources to load
-  // Then track any click event to the share button
-  twttr.ready(function (twttr) {
-    twttr.events.bind('click', clickEventToAnalytics);
-  });
+  //   window.twttr = (function(d, s, id) {
+  //   var js, fjs = d.getElementsByTagName(s)[0],
+  //     t = window.twttr || {};
+  //   if (d.getElementById(id)) return t;
+  //   js = d.createElement(s);
+  //   js.id = id;
+  //   js.src = "https://platform.twitter.com/widgets.js";
+  //   fjs.parentNode.insertBefore(js, fjs);
+  //
+  //   t._e = [];
+  //   t.ready = function(f) {
+  //     t._e.push(f);
+  //   };
+  //
+  //   return t;
+  // }(document, "script", "twitter-wjs"));
+  //
+  //
+  // function clickEventToAnalytics (intentEvent) {
+  //   if (!intentEvent) return;
+  //   var label = intentEvent.region;
+  //   analytics.track('Share', {category: 'Translated Page',label: 'Twitter'});
+  //   analytics.track('Shared', {category: 'Twitter',label: '{{ translationId }}'});
+  //   analytics.track('Click', {category: 'Social',label: 'Twitter Share Button', value: {{ totalTranslations }} }); // new format
+  //   analytics.page({title: 'Funnel: Clicked Social',path: '/funnel/social/twitter/clicked'});
+  // }
+  //
+  // // Wait for the asynchronous resources to load
+  // // Then track any click event to the share button
+  // twttr.ready(function (twttr) {
+  //   twttr.events.bind('click', clickEventToAnalytics);
+  // });
 
 </script>
 
