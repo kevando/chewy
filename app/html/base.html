@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Wookie Translator</title>
+
+	{% include "partials/analytics.html" %} 
+	{% include "partials/meta.html" %}
+    {% include "partials/favicons.html" %}
+
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower&display=swap" rel="stylesheet" />
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+
+    <link href="/css/wookie.css" rel="stylesheet" media="screen" />
+	<script src="/js/wookie.js?well=well"></script>
+	
+  </head>
+  <body>
+    <div class="container">
+      <div class="wrapper-header">
+        <h1><a href="/">Wookie Translator</a></h1>
+        <h3>A simple tool that helps you talk with Wookies.</h3>
+      </div>
+
+      <div class="wrapper-input">
+        <fieldset id="field">
+          <form id="form" action="/translate">
+            <input
+              autocomplete="off"
+              placeholder=""
+              name="english"
+              class="phrase"
+              id="phrase"
+            />
+            <button class="chew-btn" id="translate" type="submit"></button>
+          </form>
+        </fieldset>
+      </div>
+
+      <div id="wrapper" class="wrapper-translated"></div>
+      <div class="shadow"></div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,418 @@
+* {
+  -webkit-box-sizing: border-box;
+  /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;
+  /* Firefox, other Gecko */
+  box-sizing: border-box;
+  /* Opera/IE 8+ */
+}
+
+::selection {
+  background: #333;
+  color: white;
+}
+::-moz-selection {
+  background: #333;
+  color: white;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background: url("/img/chew-btn-active.png") no-repeat -9999px -9999px;
+}
+
+.translation {
+  margin-bottom: 20px;
+  padding-top: 15px;
+}
+.invalid-input {
+  border: solid 1px red;
+}
+
+h1 {
+  font-size: 300%;
+  font-family: "Indie Flower", cursive;
+  margin-top: 5%;
+  letter-spacing: 0.04em;
+}
+h1 a {
+  color: #555555;
+  text-decoration: none;
+}
+h1 a:hover {
+  color: #000000;
+}
+h3 {
+  font-size: 1.13em;
+  font-weight: 100;
+  margin-left: 8px;
+  margin-top: -39px;
+}
+
+.feed-back {
+  margin-top: -13px;
+  line-height: 17px;
+}
+
+fieldset {
+  background-color: #f6f6f6;
+  margin: 0 auto;
+  padding: 15px;
+  border-radius: 2px;
+  border: solid 1px #d2d2d2;
+}
+
+.chew-btn {
+  padding: 18px;
+  width: 50px;
+  height: 46px;
+  margin-left: 8px;
+  border-radius: 7px;
+  border: solid 0px;
+  cursor: pointer;
+
+  position: relative;
+  overflow: hidden;
+}
+.chew-btn:before {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: -20px;
+  left: -26px;
+  background-image: url(/img/icon-awake.png);
+  background-size: 34px;
+  background-repeat: no-repeat;
+  background-color: #3e3e3e;
+  background-position: center center;
+  transition: all 200ms 0s ease-out;
+}
+
+@keyframes sleepingWookie {
+  from {
+    top: -17px;
+  }
+
+  to {
+    top: -14px;
+  }
+}
+@keyframes roaringWookie {
+  from {
+    margin-left: -0px;
+  }
+
+  to {
+    margin-left: -2px;
+  }
+}
+
+.sleeping .chew-btn:before {
+  background-image: url(/img/icon-asleep.png);
+  transform: rotate(9deg);
+  animation-duration: 3s;
+  animation-name: sleepingWookie;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+}
+
+.roaring .chew-btn:before {
+  background-image: url(/img/icon-roar.png);
+
+  animation-duration: 70ms;
+  animation-name: roaringWookie;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+
+  transform: rotate(-4deg) scale(1.2);
+}
+
+.chew-btn:focus {
+  outline: none;
+}
+
+.sleeping .phrase {
+  background: #f7f7f7;
+}
+
+.phrase {
+  padding: 10px;
+  font-size: 100%;
+  width: 84%;
+  border-radius: 7px;
+}
+.phrase:focus {
+  outline: none;
+  background: #fff;
+  border-top-color: #00000075;
+  border-left-color: #00000085;
+  border-bottom-color: #0000000d;
+  border-width: 3px;
+}
+
+.wrapper-translated p {
+  margin: 0 auto;
+  background-color: #f6f6f6;
+  padding: 15px 10px 15px 15px;
+  border-radius: 2px;
+  border: solid 1px #d2d2d2;
+  text-align: left;
+  font-size: 1.06em;
+  min-height: 52px;
+  margin-top: 25px;
+
+  transition: all 1s 1s ease-out;
+}
+
+.wrapper-translated p:before {
+  content: "Translation:";
+  font-weight: 700;
+  margin-right: 10px;
+  min-height: 29px;
+}
+
+.wrapper-translated p span {
+  font-family: Helvetica;
+  font-weight: 100;
+  color: #424242;
+  font-size: 1.1em;
+  letter-spacing: 0.06em;
+}
+
+.disabled-input {
+  width: 80%;
+  padding: 1%;
+}
+
+.shadow {
+  box-shadow: inset 0px -55px 61px 32px rgb(255, 255, 255);
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+}
+
+input[disabled] {
+  cursor: not-allowed;
+  background-color: #fff;
+}
+
+.wrapper-header {
+  text-align: center;
+  margin: 0 auto 44px auto;
+}
+.wrapper-header a:hover {
+  text-decoration: none;
+}
+.wrapper-input {
+  max-width: 600px;
+  margin: 0 auto;
+}
+.wrapper-translated {
+  max-width: 600px;
+  margin: 0 auto;
+  margin-top: 0px;
+}
+.wrapper-share {
+  margin: 30px auto;
+  border: Solid 0px black;
+  text-align: center;
+}
+
+.fb-button {
+  margin: 2px;
+  color: #496db9;
+}
+.tw-button {
+  margin: 2px;
+  color: #0ac2ff;
+}
+.share-text {
+  font-weight: normal;
+}
+.share {
+  margin-left: 90px;
+}
+
+.direct-link {
+  cursor: pointer !important;
+  width: 100%;
+  text-align: center;
+  background-color: white !important;
+  padding: 4px;
+  font-size: 12px !important;
+  border: none;
+  color: #979797;
+}
+.footer {
+  position: absolute;
+  bottom: 0px;
+  right: 30px;
+}
+.footer p {
+  padding: 10px;
+  font-size: 80%;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+  -moz-opacity: 0.5;
+  -khtml-opacity: 0.5;
+  opacity: 0.5;
+}
+.footer p:hover {
+  font-size: 90%;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+  -moz-opacity: 0.5;
+  -khtml-opacity: 0.5;
+  opacity: 1;
+}
+.container {
+  padding: 6% 0 2% 0;
+}
+
+.wookington-header {
+  background: #000;
+  height: auto;
+  width: 100%;
+  text-align: center;
+  display: inline-block;
+}
+.wookington-header:hover {
+  text-decoration: none;
+}
+.wookington-header:hover > h4 span {
+  text-decoration: underline;
+}
+.wookington-header h4 {
+  color: white;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  margin: 5px;
+}
+.wookington-header h4 span {
+  color: #f2e85a;
+  font-weight: 500;
+}
+.wookington-header h4 span .star-wars-title {
+  color: #111;
+  font-size: 27px;
+  text-shadow: 0px 0px 0px yellow, 0px 0px yellow;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+p.translations-public {
+  color: #333;
+  position: relative;
+  top: 120px;
+  margin: 0;
+  font: 400 12px system-ui;
+}
+p.translations-public input {
+  margin-right: 5px;
+}
+/*.public-btn {
+	  border: solid 1px black;
+	
+	  background-repeat: no-repeat;
+	
+	  color: white;
+	
+	  text-decoration: none;
+	
+	  background-color: white;
+	
+	  padding: 8px 17px;
+	
+	  font: 100 13px system-ui;
+	
+	  background-color: #2E933C;
+	
+	  border-radius: 3px;
+	
+	}*/
+
+@media (max-width: 350px) {
+  .wrapper-header {
+    width: 300px;
+  }
+  .wrapper-input {
+    width: 300px;
+  }
+  .wrapper-translated {
+    width: 300px;
+  }
+  .wrapper-share {
+    width: 300px;
+  }
+  h1 {
+    font-size: 200%;
+  }
+  h3 {
+    font-size: 90%;
+    font-weight: normal;
+    margin-top: -20px;
+  }
+  button {
+    margin-top: 0px;
+  }
+  .share {
+    margin-left: 0px;
+  }
+  .phrase {
+    width: 75%;
+  }
+
+  .wookington-header h4 span {
+    width: 100%;
+  }
+}
+
+/*added an in-between size for headers to better scale down*/
+@media (min-width: 350px) and (max-width: 40em) {
+  h1 {
+    font-size: 2.1em;
+    margin-top: 2%;
+  }
+  h3 {
+    font-size: 95%;
+    margin-top: -32.5px;
+  }
+  .phrase {
+    width: 80%;
+  }
+}
+
+@media only screen and (max-width: 40em) {
+  .wookington-header h4 span {
+    display: block;
+  }
+  .chew-btn {
+    margin-left: 0px;
+    max-height: 42px;
+    float: right;
+  }
+  .wrapper-translated p {
+    position: relative;
+  }
+  .wrapper-translated p strong {
+    position: absolute;
+    top: 4px;
+    font-family: monospace;
+    font-size: 0.8em;
+    left: 6px;
+    color: #5a5a5a;
+    font-weight: 300;
+  }
+  .wrapper-translated p span {
+    line-height: 2em;
+  }
+  .container {
+    padding: 1% 10px 2% 10px;
+  }
+} /* max-width 640px, mobile-only styles, use when QAing mobile issues */

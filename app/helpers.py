@@ -1,83 +1,36 @@
-
 import config
-# import cgi
-# import webapp2
 import random
 import os
-# from google.appengine.ext.webapp import template
-# import datetime
-
-# from google.appengine.ext import webapp
-# from google.appengine.ext.webapp.util import run_wsgi_app
 from webapp2_extras import sessions
-# import logging
 from google.appengine.api import urlfetch
 import urllib
-
 from dude import *
 from models import *
 
-def getTotalTranslations(self):
+# def getTotalTranslations(self):
 
-	totalTranslations = self.session.get('total_translations')
+# 	totalTranslations = self.session.get('total_translations')
 
-	# dude('getTotalTranslations')
-	# dude(totalTranslations)
+# 	if(totalTranslations):
+# 		dude('we have a total!')
+# 	else:
+# 		self.session['total_translations'] = 0
 
-	if(totalTranslations):
-		dude('we have a total!')
-	else:
-		# dude('we dont have a total. need to init')
-		self.session['total_translations'] = 0
+# 	return totalTranslations
 
-	return totalTranslations
+# def incrementTotalTranslations(self):
 
-def incrementTotalTranslations(self):
+# 	totalTranslations = self.session.get('total_translations')
 
-	totalTranslations = self.session.get('total_translations')
+# 	if(totalTranslations):
 
-	# dude('incrementTotalTranslations')
-	# dude(totalTranslations)
-
-	if(totalTranslations):
-		# dude('we have a total! inc')
-		totalTranslations += 1
-		# dude('incrementTotalTranslations')
-		# dude(totalTranslations)
-		self.session['total_translations'] = totalTranslations
-	else:
-		# dude('we dont have a total. soome ting wrong')
-		totalTranslations = 1
-		# dude('incrementTotalTranslations')
-		# dude(totalTranslations)
-        self.session['total_translations'] = totalTranslations
+# 		totalTranslations += 1
+# 		self.session['total_translations'] = totalTranslations
+# 	else:
+# 		totalTranslations = 1
+#         self.session['total_translations'] = totalTranslations
 
 
-# --------------------------------------------------------------
-# Push Translations to Zapier
-# --------------------------------------------------------------
-
-def pushTranslationToZapier(templateValues):
-
-    # First see if user wants their translation to be public
-    dude(templateValues)
-    dude('templateValues.translationsPublic')
-
-    if templateValues['translationsPublic'] is True:
-
-        # Send the info over to Zapier.
-
-        try:
-            payload = urllib.urlencode(templateValues)
-            headers = {}
-            result = urlfetch.fetch(
-                url='https://hooks.zapier.com/hooks/catch/1835221/anx2ol/',
-                payload=payload,
-                method=urlfetch.POST,
-                headers=headers)
-            dude(result.content)
-        except urlfetch.Error:
-            logging.exception('Caught exception fetching url')
 
 # ------------------------------------------------------------------------------
 
@@ -147,7 +100,7 @@ def translateToWookie(englishWord,ip,self):
 	englishWord.find('huuguughghg') != -1 or
 	englishWord.find('raaaaaahhgh') != -1 or
 	englishWord.find('awwgggghhh') != -1):
-		translation = '** Invalid Input! Language Recognized as Wookie**'
+		translation = 'Language Recognized as Wookie'
 
 
 
@@ -155,6 +108,6 @@ def translateToWookie(englishWord,ip,self):
 	newTranslation.put()
 	newCorrectUrlKey = int(newTranslation.key().id())
 
-	incrementTotalTranslations(self)
+	# incrementTotalTranslations(self)
 
 	return newCorrectUrlKey
