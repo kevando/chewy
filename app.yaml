@@ -1,4 +1,3 @@
-
 runtime: python27
 api_version: 1
 threadsafe: yes
@@ -13,13 +12,9 @@ handlers:
 - url: /img
   static_dir: assets/img
 
-- url: /favicon.ico
-  static_files: img/favicon.ico
-  upload: img/favicon.ico
-
 - url: /robots.txt
-  static_files: robots.txt
-  upload: robots.txt
+  static_files: assets/txt/robots.txt
+  upload: assets/txt/robots.txt
 
 - url: .*
   script: main.app

@@ -37,30 +37,30 @@ from helpers import *
 
 class TranslatePageHandler(webapp2.RequestHandler):
 
-	def get(self,urlKey):
+    def get(self, urlKey):
 
-		templateValues = {
-                'placeholder':'Enter Human Language',
-                'key':config.getKey(),
-                'BASE_URL':config.getRootURL(),
-                # 'totalTranslations': getTotalTranslations(self),
+        templateValues = {
+            'placeholder': 'Enter Human Language',
+            'key': config.getKey(),
+            'BASE_URL': config.getRootURL(),
+            # 'totalTranslations': getTotalTranslations(self),
         }
-		path = os.path.join(os.path.dirname(__file__), 'html/main.html')
-		self.response.out.write(template.render(path, templateValues))
+        path = os.path.join(os.path.dirname(__file__), 'html/main.html')
+        self.response.out.write(template.render(path, templateValues))
 
 
 class TranslateHandler(webapp2.RequestHandler):
-	def post(self):
+    def post(self):
 
-		# Grab user input
-		data = json.loads(self.request.body)
-		english = data['english']
+        # Grab user input
+        data = json.loads(self.request.body)
+        english = data['english']
 
-		# Translate to wookie. Not ideal code...
-		newUrlKey = translateToWookie(english,self.request.remote_addr,self)
-		translation = Translation.get_by_id(newUrlKey)
+        # Translate to wookie. Not ideal code...
+        newUrlKey = translateToWookie(english, self.request.remote_addr, self)
+        translation = Translation.get_by_id(newUrlKey)
 
-		self.response.out.write(translation.wookie)
+        self.response.out.write(translation.wookie)
 
 # --------------------------------------------------------------
 # Set Session Data
@@ -130,11 +130,11 @@ class TranslateHandler(webapp2.RequestHandler):
 # ---------------------------------------------------------------------
 
 class NotFoundPageHandler(webapp2.RequestHandler):
-	def get(self):
-		self.error(404)
-		templateValues = {'BASE_URL':config.getRootURL()}
-		path = os.path.join(os.path.dirname(__file__), 'html/404.html')
-		self.response.out.write(template.render(path, templateValues))
+    def get(self):
+        self.error(404)
+        templateValues = {'BASE_URL': config.getRootURL()}
+        path = os.path.join(os.path.dirname(__file__), 'html/404.html')
+        self.response.out.write(template.render(path, templateValues))
 # ---------------------------------------------------------------------
 
 
